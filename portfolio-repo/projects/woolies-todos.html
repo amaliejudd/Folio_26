@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Me@Woolies: To Dos | Amalie Judd</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="../index.html" class="nav-item">Work</a>
+  <a href="../fun.html" class="nav-item">Fun</a>
+  <a href="../about.html" class="nav-item">About</a>
+  <a href="../Amalie_Judd_Resume.pdf" class="nav-item nav-resume">Resume</a>
+</nav>
+<div class="status-chip"><span class="dot">✦</span> AMALIEJUDD</div>
+
+<main class="wrap">
+  <div class="case-wrap">
+    <aside class="case-toc">
+      <a class="back" href="../index.html">&larr; Back</a>
+      <a href="#challenge">Challenge</a><a href="#solution">Solution</a><a href="#approach">My Design &amp; Approach</a><a href="#designchallenges">Design Challenges</a><a href="#coreflows">Core Flows</a><a href="#benefits">Result</a><a href="#learnt">What I Learnt</a>
+    </aside>
+    <article class="case-main">
+      <div class="case-eyebrow">WOOLIESX • 2024</div>
+      <h1 class="case-title">Me@Woolies: To Dos</h1>
+
+      <div class="case-cover"><img src="../assets/woolies-todos.jpg" srcset="../assets/woolies-todos-640.jpg 640w, ../assets/woolies-todos.jpg 1024w" sizes="(max-width: 720px) 100vw, 800px" alt="The To Dos triage and list screens on a store RF device." loading="lazy" decoding="async"></div>
+
+      <div class="meta-grid">
+        <div>
+          <h5>Role</h5>
+          <p>User Experience Designer</p>
+        </div>
+        <div>
+          <h5>Timeline</h5>
+          <p>2024</p>
+        </div>
+        <div>
+          <h5>Team</h5>
+          <p>Tobias, Lead Service Designer @ WooliesX</p><p>Amalie, User Experience Designer</p>
+        </div>
+        <div>
+          <h5>Skills</h5>
+          <p>UX/UI Design</p><p>Prototyping</p><p>Supported User Research</p><p>Cross-functional Collaboration</p>
+        </div>
+      </div>
+
+      <section class="case-section" id="challenge"><h2>Challenge</h2><p>Store teams at Woolworths had no consistent way to manage daily tasks. Actions were buried in long communications, only accessible on desktop in the store office. There was no framework distinguishing informational content from actionable tasks, no way to track completion, and no accountability on who owned what.</p><figure class="case-figure"><img src="../assets/meW_todo_today.jpg" srcset="../assets/meW_todo_today-640.jpg 640w, ../assets/meW_todo_today-1024.jpg 1024w, ../assets/meW_todo_today-1600.jpg 1600w, ../assets/meW_todo_today.jpg 1920w" sizes="(max-width: 720px) 100vw, 800px" alt="Discovery slide titled How do we communicate actions to stores today, showing manual planners and daily comms on a desktop in the store office, unclear definitions of an action, and a team member tracking tasks on paper." loading="lazy" decoding="async"><figcaption>How actions reached stores before To Dos.</figcaption></figure></section><section class="case-section" id="solution"><h2>Solution</h2><p>We designed a mobile-first To Dos feature for RF devices, built around a triage screen. Tasks appear like a shared inbox for the Store Leader and Store Manager, giving visibility of what’s new before it’s added to a team’s To Do list. From there, a leader could schedule a task, acknowledge it to action later, or give it to another team member.</p></section><section class="case-section" id="approach"><h2>My Design &amp; Approach</h2><p>Tobias and I partnered with product, operations, and store teams to define what a &ldquo;task&rdquo; should even mean in this context, and I designed the triage experience through iterative rounds with partner stores.</p><p>I mapped the flows end to end across the feature. Each one had to work for three roles with different permissions &mdash; a Store Manager seeing across the store, a Store Leader across their department, a Team Member seeing only what&rsquo;s landed on them &mdash; and hold up whether the task came from Support Office or was raised in store, and whether it was due today, due later, or already overdue. That meant working through the branches nobody demos as well as the happy paths: what happens when a task has no owner, what a leader sees actioning a set at once, what&rsquo;s left on screen when everything&rsquo;s done.</p><p>Much of the difficulty was in rules rather than screens: how a list groups by due date, where overdue sits relative to today, what an urgent tag does and doesn&rsquo;t change about sort order. I wrote those as options with the reasoning beside them so the team could decide with the trade-offs visible.</p></section><section class="case-section" id="designchallenges"><h2>Design Challenges</h2><div class="design-challenge"><h3>Design Challenge 1: Personal vs. Cascaded Actions</h3><p>We’d initially designed the platform around personal, self-managed actions, but executive concerns about store culture pushed us to pivot toward actions cascaded from the Support Office instead. We trialled the personal version in partner stores first; teams found it clunky with no way to delegate, which confirmed the pivot was right.</p></div><div class="design-challenge"><h3>Design Challenge 2: The "Acknowledge" Button</h3><p>Once cascaded To Dos launched, we hit a real usability problem: the "Acknowledge" button. Teams didn’t understand what it did or why it was a separate step, especially for simple tasks they could’ve just completed on the spot. We’d validated that To Dos as a concept made sense, but hadn’t validated the language or interaction model with a wider group.</p><p>My lead and I ran listening sessions together to understand the confusion, and found team members were thinking in terms of what they needed to <em>do</em>, not what they needed to <em>signal</em>. We iterated in stages: renaming the button to "Add to Department List" as a quick fix, then realising teams needed to mark simple tasks complete right from triage rather than double-handling them. We added a "Mark as Complete" option, deprioritised the reschedule action to make room for it, and finally renamed "Acknowledge" to "Do Later" once we understood its real purpose was expressing intent, not filing something away.</p><p>The end result was three clear actions that matched how teams actually thought about tasks: Do Later, Give To, and Mark as Complete.</p></div></section><section class="case-section" id="coreflows"><h2>Core Flows</h2><p>A few of the core flows, out of the full set.</p><div class="core-flow"><h3>Triage what&rsquo;s new</h3><p>See tasks arriving from Support Office before they reach the team&rsquo;s list.</p><div class="media-placeholder">[ VIDEO ]</div></div><div class="core-flow"><h3>Schedule it for the right time</h3><p>Set a date and time so a task lands when the shift can actually do it.</p><div class="media-placeholder">[ VIDEO ]</div></div><div class="core-flow"><h3>Give it to someone</h3><p>Assign to one person, several people, or yourself.</p><div class="media-placeholder">[ VIDEO ]</div></div><div class="core-flow"><h3>Close it out</h3><p>Mark a task complete, with an optional note on how it went.</p><div class="media-placeholder">[ VIDEO ]</div></div><div class="core-flow"><h3>Change the owner</h3><p>Hand a task to a team member or another leader.</p><div class="media-placeholder">[ VIDEO ]</div></div></section><section class="case-section" id="benefits"><h2>Result</h2><p>To Dos piloted in test and learn partner stores before rolling out across more than 1,000 stores and fulfilment centres in Australia. The later rounds of piloting showed a marked improvement in comprehension and adoption over the earlier "Acknowledge" version, and the redesigned language reduced the double-handling teams were experiencing with simple tasks.</p></section><section class="case-section" id="learnt"><h2>What I Learnt</h2><p>Validating a concept isn’t the same as validating the language around it. We’d co-designed To Dos with teams from day one and still missed how confusing "Acknowledge" felt to someone just trying to get through a shift. What actually fixed it wasn’t a redesign, it was renaming a button three times until the words matched how people already talked about their own work.</p></section>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/amalie-judd-a41129177/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:amaliejudd@outlook.com">Email</a>
+      <a href="../Amalie_Judd_Resume.pdf">CV</a>
+    </div>
+    <div class="footer-note">© 2026 Amalie Judd</div>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
