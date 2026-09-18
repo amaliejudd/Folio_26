@@ -204,6 +204,12 @@ doc = f"""<title>Amalie Judd | Senior UX Designer</title>
 <script>
 {router_js}
 </script>
+<!-- head-spin.js drives the About page's floating head canvas. It's kept as a
+     sibling file (not inlined like script.js) because it fetches 24 image
+     frames from assets/head-spin/ at runtime — those aren't base64-inlined
+     either, so this preview.html must stay next to head-spin.js and
+     assets/head-spin/ for the head to work here. -->
+<script src="head-spin.js" defer></script>
 """
 
 with open(os.path.join(ROOT, 'preview.html'), 'w', encoding='utf-8') as f:
