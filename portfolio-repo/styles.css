@@ -477,6 +477,8 @@ footer.site-footer .wrap{
 .case-main{flex:1;min-width:0;max-width:760px;padding-bottom:120px;}
 .case-eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.03em;color:var(--text-soft);text-transform:uppercase;}
 .case-title{font-family:var(--serif);font-size:44px;font-weight:400;margin:14px 0 40px;line-height:1.2;}
+.case-caption{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted,rgba(0,0,0,.5));margin:-10px 0 40px;}
+.case-lede{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--text-soft);margin:-24px 0 32px;line-height:1.4;}
 .meta-grid{
   display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
   border-top:1px solid var(--border);border-bottom:1px solid var(--border);
