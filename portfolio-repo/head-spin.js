@@ -7,9 +7,13 @@
 //         data-start="0"                    first file number (default 0)
 //         data-sweep="360"></canvas>        degrees covered edge-to-edge (default 360)
 //
+//         data-scroll-sweep="180"           touch only: degrees turned as the head
+//                                           travels from top to bottom of the screen
+//
 // Frame 0 must face the camera; later frames turn the same direction each step.
 // Mouse: horizontal position in the window picks the angle (centre = facing you).
-// Touch: drag sideways on the head to spin it.
+// Touch: the head's position on screen picks the angle — facing you when it's
+// level with the middle of the viewport, turning as you scroll it up or down.
 
 class HeadSpin {
   constructor(canvas) {
@@ -18,6 +22,8 @@ class HeadSpin {
     this.ctx = canvas.getContext('2d');
     this.count = Number(d.frames);
     this.sweep = Number(d.sweep ?? 360);
+    this.scrollSweep = Number(d.scrollSweep ?? 180);
+    this.touch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     this.frames = new Array(this.count);
     this.shown = 0; // frame currently on screen
     this.target = 0; // frame we're spinning towards
@@ -33,8 +39,11 @@ class HeadSpin {
     this.load(urls[0], 0).then(() => urls.slice(1).forEach((u, i) => this.load(u, i + 1)));
 
     new ResizeObserver(() => this.resize()).observe(canvas);
-    this.bindMouse();
-    this.bindTouch();
+    if (this.touch) {
+      this.bindScroll();
+    } else {
+      this.bindMouse();
+    }
   }
 
   load(url, i) {
@@ -55,6 +64,32 @@ class HeadSpin {
       const x = e.clientX / window.innerWidth - 0.5; // -0.5 … 0.5
       this.spinTo(Math.round(((x * this.sweep) / 360) * this.count));
     });
+  }
+
+  // Touch devices: no cursor to follow, so the scroll position drives the turn.
+  // Centre of the head at the centre of the viewport = frame 0 (facing you);
+  // moving it towards the top or bottom edge turns it up to scrollSweep/2 each way.
+  bindScroll() {
+    const update = () => {
+      const r = this.canvas.getBoundingClientRect();
+      const mid = r.top + r.height / 2;
+      // -0.5 (top edge) … 0.5 (bottom edge); clamped so the head is never turned
+      // past its edge-of-screen angle while it's still off screen.
+      const y = Math.max(-0.5, Math.min(0.5, mid / window.innerHeight - 0.5));
+      this.spinTo(Math.round(((y * this.scrollSweep) / 360) * this.count));
+    };
+    let queued = false;
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        update();
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
   }
 
   bindTouch() {
