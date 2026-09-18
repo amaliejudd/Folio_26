@@ -31,6 +31,11 @@ a{color:inherit;text-decoration:none;}
 
 .wrap{max-width:1220px;margin:0 auto;padding:0 24px;}
 main.wrap{padding-top:clamp(160px, calc(26vh + 90px), 340px);}
+/* Phones are tall and narrow, so the vh-based padding above balloons to ~300px.
+   Just clear the fixed nav pill with a modest fixed gap instead. */
+@media(max-width:600px){
+  main.wrap{padding-top:120px;}
+}
 
 ::selection{background:rgba(233,141,52,0.28);color:var(--text);}
 ::-moz-selection{background:rgba(233,141,52,0.28);color:var(--text);}
