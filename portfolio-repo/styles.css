@@ -610,16 +610,172 @@ footer.site-footer .wrap{
   .lightbox.zoomed img{width:1100px;}
 }
 
-/* Core flow media: these are portrait phone recordings, so cap the width
-   rather than letting a 1:2 video run the full 760px column. */
-.core-flow .media-placeholder{max-width:320px;height:auto;aspect-ratio:1/2;}
-.core-flow video, .core-flow img{max-width:320px;height:auto;display:block;border-radius:var(--card-radius);}
+/* Core flow rows: prototype on the left, heading and one line beside it.
+   The media is a portrait phone recording, so it gets a fixed column and the
+   text takes what is left. Stacks on narrow screens. */
+.core-flow{
+  display:flex;align-items:center;gap:40px;
+  margin:40px 0;
+}
+.core-flow-media{flex:0 0 340px;max-width:340px;}
+.core-flow-text{flex:1 1 auto;min-width:0;}
+.core-flow-text h3{margin:0 0 8px;}
+.core-flow-text p{margin:0 0 10px;}
+.core-flow-text p:last-child{margin-bottom:0;}
+.core-flow-media .media-placeholder{width:100%;height:auto;aspect-ratio:1/2;}
+.core-flow-media video,
+.core-flow-media img{
+  width:100%;height:auto;display:block;border-radius:var(--card-radius);
+}
+.core-flow-media .embed-responsive{width:100%;}
+
+@media(max-width:760px){
+  .core-flow{flex-direction:column;align-items:flex-start;gap:18px;margin:28px 0;}
+  .core-flow-media{flex:none;max-width:340px;width:100%;}
+}
 
 @media(max-width:760px){
   /* Long tags ("Sydney Water • via Wipro RFP") can't sit beside a wrapping
      title on a narrow phone — stack them and let them wrap. */
   .project-caption{flex-direction:column;align-items:flex-start;gap:4px;}
   .project-card .tag{white-space:normal;}
+}
+
+
+/* Device shot: a prototype recording inside a phone frame, sitting on a
+   blurred photo of where the thing is actually used. Set the backdrop per
+   instance with --shot-bg, e.g. style="--shot-bg:url(assets/foo.jpg)". */
+.device-shot{
+  position:relative;
+  aspect-ratio:1/1;
+  border-radius:var(--card-radius);
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:#e8eaed;
+  isolation:isolate;
+}
+.device-shot::before{
+  content:"";position:absolute;inset:-8%;z-index:0;
+  background-image:var(--shot-bg, linear-gradient(140deg,#dfe4ea,#c9d2dc));
+  background-size:cover;background-position:center;
+  filter:blur(18px) saturate(1.05);
+  transform:scale(1.06);
+}
+.device-shot::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.12));
+}
+
+.device-shot .phone{
+  position:relative;z-index:2;
+  height:78%;
+  aspect-ratio:9/19.5;
+  background:#111316;
+  border-radius:30px;
+  padding:7px;
+  box-shadow:0 18px 40px rgba(0,0,0,.34), 0 2px 0 rgba(255,255,255,.14) inset;
+}
+.device-shot .screen{
+  position:relative;
+  width:100%;height:100%;
+  border-radius:24px;
+  overflow:hidden;
+  background:#fff;
+}
+.device-shot .screen > video,
+.device-shot .screen > img,
+.device-shot .screen > .media-placeholder{
+  width:100%;height:100%;display:block;object-fit:cover;
+  border-radius:0;max-width:none;aspect-ratio:auto;
+}
+/* Dynamic island */
+.device-shot .phone::before{
+  content:"";position:absolute;z-index:3;
+  top:14px;left:50%;transform:translateX(-50%);
+  width:31%;height:14px;border-radius:9px;background:#111316;
+}
+
+
+/* Woolies shots sit on a blurred store interior, so the device reads as being
+   used where it was actually used. Blur is light enough that the store still
+   reads as a store rather than turning into colour. */
+.device-shot--rf::before{
+  background-image:url(assets/woolies-store.jpg);
+  background-size:cover;background-position:center 34%;
+  filter:blur(7px) saturate(1.06);
+  transform:scale(1.05);
+}
+.device-shot--rf::after{
+  background:linear-gradient(180deg, rgba(0,0,0,.03), rgba(0,0,0,.14));
+}
+
+/* RF handheld. Me@Woolies ran on rugged Zebra handhelds, not phones, so every
+   Woolies screen sits in the real device rather than a drawn one.
+   assets/rf-device.png is the device render with the screen area punched out,
+   so the recording behind it shows through the hole. Insets below are measured
+   from that PNG: do not eyeball them if you swap the device image. */
+.device-shot--rf .phone{
+  aspect-ratio:289/477;
+  height:88%;
+  background:none;
+  box-shadow:none;
+  padding:0;
+  filter:drop-shadow(0 16px 30px rgba(0,0,0,.42));
+}
+.device-shot--rf .phone::before{display:none;}
+.device-shot--rf .phone::after{
+  content:"";position:absolute;inset:0;z-index:3;
+  transform:none;width:auto;height:auto;border-radius:0;
+  background:url(assets/rf-device.png) center / 100% 100% no-repeat;
+  pointer-events:none;
+}
+.device-shot--rf .screen{
+  position:absolute;z-index:1;
+  left:18.34%;top:15.93%;right:17.65%;bottom:15.51%;
+  width:auto;height:auto;
+  border-radius:0;
+  box-shadow:none;
+}
+
+/* A placeholder sitting inside a device screen fills the screen flat, with no
+   dashed border, since the device frame is already the edge. */
+.device-shot .screen > .media-placeholder{
+  /* the earlier .screen > * rule sets display:block, which kills the centring
+     on the base .media-placeholder — put the flex back */
+  display:flex;align-items:center;justify-content:center;
+  border:0;border-radius:0;
+  background:#eef1f4;
+  color:rgba(0,0,0,.42);
+  width:100%;height:100%;
+}
+
+/* Two device shots side by side, for a figure that compares screens. */
+.shot-pair{display:flex;gap:18px;margin:24px 0;}
+.shot-pair .device-shot{flex:1 1 0;min-width:0;}
+@media(max-width:760px){
+  .shot-pair{flex-direction:column;gap:14px;}
+  .shot-pair .device-shot{max-width:340px;}
+}
+
+/* Playback controls, shown once a real recording is in place */
+.device-shot .shot-controls{
+  position:absolute;z-index:4;top:14px;right:14px;
+  display:flex;gap:8px;opacity:0;transition:opacity .18s ease;
+}
+.device-shot:hover .shot-controls,
+.device-shot:focus-within .shot-controls{opacity:1;}
+.device-shot .shot-controls button{
+  width:34px;height:34px;border:0;border-radius:50%;
+  background:rgba(28,28,30,.62);color:#fff;
+  font-size:14px;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);
+}
+.device-shot .shot-controls button:hover{background:rgba(28,28,30,.82);}
+
+@media(max-width:760px){
+  .device-shot .phone{height:76%;}
+  .device-shot .shot-controls{opacity:1;}
 }
 
 /* Embedded interactive prototype */

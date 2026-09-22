@@ -119,3 +119,53 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
 })();
+
+
+/* Device shots: give any real <video> pause/restart controls, like the
+   reference. Placeholders get nothing, so the buttons only appear once a
+   recording is actually in place. */
+(function(){
+  document.querySelectorAll('.device-shot').forEach(function(shot){
+    var video = shot.querySelector('video');
+    if (!video) return;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.autoplay = true;
+
+    var bar = document.createElement('div');
+    bar.className = 'shot-controls';
+
+    var toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.setAttribute('aria-label', 'Pause');
+    toggle.textContent = '❙❙';
+
+    var restart = document.createElement('button');
+    restart.type = 'button';
+    restart.setAttribute('aria-label', 'Restart');
+    restart.textContent = '↺';
+
+    toggle.addEventListener('click', function(){
+      if (video.paused) {
+        video.play();
+        toggle.textContent = '❙❙';
+        toggle.setAttribute('aria-label', 'Pause');
+      } else {
+        video.pause();
+        toggle.textContent = '▶';
+        toggle.setAttribute('aria-label', 'Play');
+      }
+    });
+    restart.addEventListener('click', function(){
+      video.currentTime = 0;
+      video.play();
+      toggle.textContent = '❙❙';
+      toggle.setAttribute('aria-label', 'Pause');
+    });
+
+    bar.appendChild(toggle);
+    bar.appendChild(restart);
+    shot.appendChild(bar);
+  });
+})();
