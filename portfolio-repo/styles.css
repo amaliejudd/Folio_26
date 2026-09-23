@@ -293,9 +293,16 @@ main.wrap > .hero h1{max-width:820px;}
   border-radius:999px;
 }
 .project-caption{
-  /* Cards carry the title only. The tag line that used to sit here said
-     something different on every card, so it went. */
+  /* Title, then one line saying what the work did. This replaced a tag line
+     that said something different on every card. */
   margin-top:8px;
+}
+.project-caption .project-sub{
+  margin:4px 0 0;
+  font-size:14px;
+  line-height:1.45;
+  color:var(--text-soft);
+  max-width:46ch;
 }
 .project-card h3{
   font-family:var(--serif);
