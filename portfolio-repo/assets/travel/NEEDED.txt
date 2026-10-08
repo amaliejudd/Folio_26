@@ -20,9 +20,9 @@ assets/travel/paris.jpg
 assets/travel/lisbon.jpg
 assets/travel/porto.jpg
 assets/travel/amsterdam.jpg
-assets/travel/bali-denpasar-uluwatu.jpg
+assets/travel/bali-warung.jpg
 assets/travel/bali-beach-hopping.jpg
 assets/travel/bali-nusa-penida.jpg
-assets/travel/bali-savaya.jpg
+assets/travel/bali-il-salotto.jpg
 assets/travel/bali-hatch-markets.jpg
-assets/travel/bali-fly-home.jpg
+assets/travel/bali-karma.jpg
