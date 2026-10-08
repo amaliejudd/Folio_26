@@ -1,7 +1,6 @@
 One photo per trip stop, square-ish, named exactly as below.
 Drop them in this folder and they appear on travel.html.
 
-assets/travel/colombo.jpg
 assets/travel/kandy.jpg
 assets/travel/ella.jpg
 assets/travel/yala-national-park.jpg
