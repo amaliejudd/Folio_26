@@ -121,19 +121,37 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 .t-table-wrap{margin:clamp(70px,10vw,140px) auto 0;padding-bottom:clamp(90px,12vw,160px);position:relative;}
 /* One block per trip, each with its own centred header and column row,
    so the trip name reads as the title of the table under it. */
-.t-trip{margin:0 0 clamp(70px,9vw,120px);}
-.t-trip:last-of-type{margin-bottom:0;}
-.t-trip-name{
-  text-align:center;
-  font-family:var(--t-display);font-weight:500;
-  font-size:clamp(26px,3.8vw,40px);
-  letter-spacing:-0.03em;
-  color:var(--t-ink);
-  margin:0;
+.t-trip{margin:0;}
+
+/* One tab per trip. The table under it is that trip's panel, so the trip
+   name is both the heading and the control. */
+.t-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:6px 4px;
+  margin:0 0 6px;
 }
+.t-tab{
+  appearance:none;
+  background:none;
+  border:0;
+  border-bottom:2px solid transparent;
+  padding:6px 14px 8px;
+  cursor:pointer;
+  font-family:var(--t-display);
+  font-size:clamp(20px,2.9vw,32px);
+  font-weight:500;
+  letter-spacing:-0.03em;
+  color:var(--t-faint);
+  transition:color .15s ease, background-color .15s ease;
+}
+.t-tab:hover{color:var(--t-ink);background:var(--t-hl);}
+.t-tab.is-on{color:var(--t-ink);border-bottom-color:var(--t-ink);}
+.t-tab:focus-visible{outline:2px solid var(--t-ink);outline-offset:2px;}
 .t-trip-meta{
   text-align:center;
-  margin:8px 0 34px;
+  margin:14px 0 34px;
   font-size:11px;letter-spacing:.14em;text-transform:uppercase;
   color:var(--t-soft);
 }
@@ -262,8 +280,14 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   </section>
 
   <section class="t-table-wrap" id="trips">
-      <section class="t-trip">
-        <h2 class="t-trip-name">Sri Lanka &rsquo;26</h2>
+  <div class="t-tabs" role="tablist" aria-label="Trips">
+    <button type="button" class="t-tab is-on" role="tab" id="tab-0" aria-controls="trip-0" aria-selected="true" tabindex="0">Sri Lanka &rsquo;26</button>
+    <button type="button" class="t-tab" role="tab" id="tab-1" aria-controls="trip-1" aria-selected="false" tabindex="-1">Bali &rsquo;25</button>
+    <button type="button" class="t-tab" role="tab" id="tab-2" aria-controls="trip-2" aria-selected="false" tabindex="-1">Japan &rsquo;24</button>
+    <button type="button" class="t-tab" role="tab" id="tab-3" aria-controls="trip-3" aria-selected="false" tabindex="-1">Europe &rsquo;23</button>
+  </div>
+
+      <section class="t-trip" id="trip-0" role="tabpanel" aria-labelledby="tab-0">
         <p class="t-trip-meta">11&ndash;29 MAR 2026 &middot; 8 stops</p>
         <table class="t-table">
           <thead>
@@ -322,8 +346,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
         </table>
       </section>
 
-      <section class="t-trip">
-        <h2 class="t-trip-name">Bali &rsquo;25</h2>
+      <section class="t-trip" id="trip-1" role="tabpanel" aria-labelledby="tab-1" hidden>
         <p class="t-trip-meta">26 NOV &ndash; 1 DEC 2025 &middot; 1 stop</p>
         <table class="t-table">
           <thead>
@@ -340,8 +363,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
         </table>
       </section>
 
-      <section class="t-trip">
-        <h2 class="t-trip-name">Japan &rsquo;24</h2>
+      <section class="t-trip" id="trip-2" role="tabpanel" aria-labelledby="tab-2" hidden>
         <p class="t-trip-meta">22 NOV &ndash; 10 DEC 2024 &middot; 5 stops</p>
         <table class="t-table">
           <thead>
@@ -382,8 +404,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
         </table>
       </section>
 
-      <section class="t-trip">
-        <h2 class="t-trip-name">Europe &rsquo;23</h2>
+      <section class="t-trip" id="trip-3" role="tabpanel" aria-labelledby="tab-3" hidden>
         <p class="t-trip-meta">14 JUN &ndash; 7 AUG 2023 &middot; 16 stops</p>
         <table class="t-table">
           <thead>
@@ -658,6 +679,47 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   body.addEventListener('pointerleave', function(){
     peek.classList.remove('on');
   });
+
+
+  /* ----- Trip tabs ------------------------------------------------------
+     Panels are hidden with the `hidden` property rather than display, so
+     the rows stay in the document and the warm pass can still reach them.
+     A hidden panel's rows never intersect, so warm them on show instead. */
+  var tabs   = Array.prototype.slice.call(document.querySelectorAll('.t-tab'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.t-trip'));
+  if(!tabs.length) return;
+
+  function warmPanel(panel){
+    Array.prototype.forEach.call(panel.querySelectorAll('tr[data-img]'), function(r){
+      warm(r.getAttribute('data-img'));
+    });
+  }
+
+  function show(i, moveFocus){
+    tabs.forEach(function(t, n){
+      var on = n === i;
+      t.classList.toggle('is-on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach(function(pn, n){ pn.hidden = n !== i; });
+    peek.classList.remove('on');
+    warmPanel(panels[i]);
+    if(moveFocus) tabs[i].focus();
+  }
+
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ show(i); });
+    t.addEventListener('keydown', function(e){
+      var at = tabs.indexOf(document.activeElement);
+      if(e.key === 'ArrowRight'){ e.preventDefault(); show((at + 1) % tabs.length, true); }
+      if(e.key === 'ArrowLeft'){ e.preventDefault(); show((at - 1 + tabs.length) % tabs.length, true); }
+      if(e.key === 'Home'){ e.preventDefault(); show(0, true); }
+      if(e.key === 'End'){ e.preventDefault(); show(tabs.length - 1, true); }
+    });
+  });
+
+  warmPanel(panels[0]);
 })();
 </script>
 </body>
