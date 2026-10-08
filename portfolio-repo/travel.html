@@ -141,7 +141,23 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 .t-tab:hover{color:var(--t-ink);background:var(--t-hl);}
 .t-tab.is-on{color:var(--t-ink);border-bottom-color:var(--t-ink);}
 .t-tab:focus-visible{outline:2px solid var(--t-ink);outline-offset:2px;}
-.t-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;}
+.t-table{
+  /* Fixed layout so the three columns land in the same place on every tab.
+     Left to auto, each table sized itself to its own longest place name and
+     the headers jumped as you switched trips. */
+  width:100%;
+  table-layout:fixed;
+  border-collapse:collapse;
+  font-variant-numeric:tabular-nums;
+}
+.t-col-date{width:22%;}
+.t-col-place{width:48%;}
+.t-col-country{width:30%;}
+@media(max-width:620px){
+  .t-col-date{width:30%;}
+  .t-col-place{width:40%;}
+  .t-col-country{width:30%;}
+}
 .t-table th{
   text-align:left;
   font-family:var(--t-body);font-size:11px;font-weight:500;
@@ -162,11 +178,12 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 
 .t-date{
   font-size:13px;color:var(--t-soft);
-  white-space:nowrap;width:1%;letter-spacing:.02em;
+  white-space:nowrap;letter-spacing:.02em;
 }
 .t-table tbody tr:hover .t-date,
 .t-table tbody tr:hover .t-country,
 .t-place{font-weight:500;}
+.t-table td{overflow-wrap:break-word;}
 .t-tag{
   display:inline-block;
   margin-left:12px;
@@ -178,7 +195,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   vertical-align:middle;
   white-space:nowrap;
 }
-.t-country{color:var(--t-soft);white-space:nowrap;}
+.t-country{color:var(--t-soft);}
 
 /* The preview that follows the cursor across the table. */
 .t-peek{
@@ -273,7 +290,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
       <section class="t-trip" id="trip-0" role="tabpanel" aria-labelledby="tab-0">
         <table class="t-table">
           <thead>
-            <tr><th>Date</th><th>Place</th><th>Country</th></tr>
+            <tr><th class="t-col-date">Date</th><th class="t-col-place">Place</th><th class="t-col-country">Country</th></tr>
           </thead>
           <tbody>
             <tr data-img="assets/travel/colombo.jpg">
@@ -323,7 +340,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
       <section class="t-trip" id="trip-1" role="tabpanel" aria-labelledby="tab-1" hidden>
         <table class="t-table">
           <thead>
-            <tr><th>Date</th><th>Place</th><th>Country</th></tr>
+            <tr><th class="t-col-date">Date</th><th class="t-col-place">Place</th><th class="t-col-country">Country</th></tr>
           </thead>
           <tbody>
             <tr data-img="assets/travel/uluwatu.jpg">
@@ -338,7 +355,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
       <section class="t-trip" id="trip-2" role="tabpanel" aria-labelledby="tab-2" hidden>
         <table class="t-table">
           <thead>
-            <tr><th>Date</th><th>Place</th><th>Country</th></tr>
+            <tr><th class="t-col-date">Date</th><th class="t-col-place">Place</th><th class="t-col-country">Country</th></tr>
           </thead>
           <tbody>
             <tr data-img="assets/travel/osaka.jpg">
@@ -373,7 +390,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
       <section class="t-trip" id="trip-3" role="tabpanel" aria-labelledby="tab-3" hidden>
         <table class="t-table">
           <thead>
-            <tr><th>Date</th><th>Place</th><th>Country</th></tr>
+            <tr><th class="t-col-date">Date</th><th class="t-col-place">Place</th><th class="t-col-country">Country</th></tr>
           </thead>
           <tbody>
             <tr data-img="assets/travel/copenhagen.jpg">
