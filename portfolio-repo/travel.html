@@ -5,15 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Travel (test) | Amalie Judd</title>
 <link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ---------------------------------------------------------------
    Test page only. Everything lives here rather than in styles.css
    so it can be deleted in one go if we don't keep it.
+
+   Styled after domesticdatastreamers.com: warm cream ground, one
+   geometric sans set very tight and very large, hairline table
+   rules, acid-yellow row highlight, and a floating rounded image
+   that tracks the cursor.
    --------------------------------------------------------------- */
+:root{
+  --t-bg:#efede7;        /* warm cream, slightly green-biased so it isn't beige */
+  --t-ink:#101010;
+  --t-soft:rgba(16,16,16,0.56);
+  --t-faint:rgba(16,16,16,0.34);
+  --t-line:rgba(16,16,16,0.13);
+  --t-hl:#f0ef4e;        /* the highlight yellow */
+  --t-display:'Outfit', 'Helvetica Neue', Arial, sans-serif;
+  --t-body:'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* The site hides the real cursor and draws its own dot in script.js.
+   On this page the cursor is the interface, so give it back. */
+html, body, a, .t-hero, .t-table tbody tr{cursor:auto !important;}
+
+body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
+.status-chip{display:none;}
 
 .t-hero{
   position:relative;
-  min-height:78vh;
+  min-height:76vh;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -26,103 +49,119 @@
   z-index:1;
   margin:0;
   text-align:center;
-  font-family:var(--sans);
+  font-family:var(--t-display);
   font-weight:500;
-  letter-spacing:-0.035em;
-  line-height:0.95;
-  font-size:clamp(44px, 8vw, 104px);
-  max-width:16ch;
+  letter-spacing:-0.045em;
+  line-height:0.92;
+  font-size:clamp(46px, 9vw, 124px);
+  max-width:15ch;
+  text-wrap:balance;
   pointer-events:none;
   user-select:none;
+  color:var(--t-ink);
 }
-/* The images spawn above the headline, like the DDS hero. */
+/* Images spawn above the headline, like the DDS hero. */
 .t-trail{position:absolute;inset:0;z-index:2;pointer-events:none;}
 .t-trail img{
   position:absolute;
-  width:clamp(140px, 17vw, 280px);
+  width:clamp(150px, 18vw, 290px);
   aspect-ratio:3 / 4;
+  max-width:100%;
   object-fit:cover;
-  border-radius:10px;
-  transform:translate(-50%,-50%) scale(.82);
+  border-radius:14px;
+  transform:translate(-50%,-50%) scale(.84);
   opacity:0;
   will-change:transform, opacity;
-  box-shadow:0 18px 40px rgba(50,64,79,0.18);
 }
 .t-trail img.in{opacity:1;transform:translate(-50%,-50%) scale(1);
-  transition:opacity .22s ease, transform .5s cubic-bezier(.2,.9,.25,1);}
-.t-trail img.out{opacity:0;transform:translate(-50%,-50%) scale(.94);
-  transition:opacity .5s ease, transform .5s ease;}
+  transition:opacity .2s ease, transform .5s cubic-bezier(.2,.9,.25,1);}
+.t-trail img.out{opacity:0;transform:translate(-50%,-50%) scale(.95);
+  transition:opacity .45s ease, transform .45s ease;}
 
 .t-hint{
   position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
   z-index:3;
-  font-family:var(--mono);font-size:12px;letter-spacing:.06em;
-  color:var(--text-faint);
+  font-family:var(--t-body);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--t-faint);
   pointer-events:none;
 }
 
 /* ---- Text block ---- */
-.t-intro{max-width:720px;margin:clamp(60px,9vw,120px) auto 0;}
-.t-intro p{font-size:17px;line-height:1.6;color:var(--text-soft);margin:0 0 18px;}
-.t-intro p:first-child{font-size:22px;line-height:1.45;color:var(--text);}
-.t-intro a{color:var(--accent);text-decoration:underline;}
+.t-intro{max-width:680px;margin:clamp(50px,8vw,110px) auto 0;}
+.t-intro p{font-size:16px;line-height:1.65;color:var(--t-soft);margin:0 0 18px;}
+.t-intro p:first-child{
+  font-family:var(--t-display);
+  font-size:clamp(24px,3.2vw,34px);
+  line-height:1.2;
+  letter-spacing:-0.025em;
+  color:var(--t-ink);
+  margin-bottom:26px;
+}
+.t-intro a{color:var(--t-ink);text-decoration:underline;text-underline-offset:3px;}
 
 /* ---- Table ---- */
 .t-table-wrap{margin:clamp(70px,10vw,140px) auto 120px;position:relative;}
 .t-table-head{
   text-align:center;
-  font-family:var(--sans);font-weight:500;
-  font-size:clamp(22px,3vw,30px);
-  letter-spacing:-0.02em;
-  margin:0 0 34px;
+  font-family:var(--t-display);font-weight:500;
+  font-size:clamp(24px,3.4vw,34px);
+  letter-spacing:-0.025em;
+  color:var(--t-ink);
+  margin:0 0 36px;
 }
-.t-table{width:100%;border-collapse:collapse;}
+.t-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;}
 .t-table th{
   text-align:left;
-  font-family:var(--mono);font-size:11px;font-weight:500;
-  letter-spacing:.1em;text-transform:uppercase;
-  color:var(--text-faint);
-  padding:0 16px 12px;
-  border-bottom:1px solid var(--border);
+  font-family:var(--t-body);font-size:11px;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--t-faint);
+  padding:0 16px 14px;
+  border-bottom:1px solid var(--t-line);
 }
 .t-table td{
-  padding:20px 16px;
-  border-bottom:1px solid var(--border);
+  padding:19px 16px;
+  border-bottom:1px solid var(--t-line);
   vertical-align:middle;
   font-size:16px;
+  color:var(--t-ink);
 }
-.t-table tbody tr{transition:background-color .18s ease;}
-.t-table tbody tr:hover{background:var(--accent-tint);}
+.t-table tbody tr{background:transparent;}
+.t-table tbody tr:hover{background:var(--t-hl);}
 .t-date{
-  font-family:var(--mono);font-size:13px;color:var(--text-soft);
-  white-space:nowrap;width:1%;
+  font-size:13px;color:var(--t-soft);
+  white-space:nowrap;width:1%;letter-spacing:.02em;
 }
+.t-table tbody tr:hover .t-date,
+.t-table tbody tr:hover .t-country,
+.t-table tbody tr:hover .t-end{color:var(--t-ink);}
 .t-place{font-weight:500;}
 .t-tag{
   display:inline-block;
-  margin-left:10px;
-  padding:3px 11px;
-  border:1px solid var(--border);
+  margin-left:12px;
+  padding:4px 13px;
+  border:1px solid rgba(16,16,16,0.3);
   border-radius:999px;
-  font-family:var(--mono);font-size:11px;letter-spacing:.04em;
-  color:var(--text-soft);
+  font-size:11px;letter-spacing:.03em;
+  color:var(--t-ink);
   vertical-align:middle;
+  white-space:nowrap;
 }
-.t-country{color:var(--text-soft);white-space:nowrap;}
-.t-end{width:1%;text-align:right;color:var(--text-faint);font-size:18px;}
+.t-country{color:var(--t-soft);white-space:nowrap;}
+.t-end{width:1%;text-align:right;color:var(--t-faint);font-size:17px;}
 
 /* The preview that follows the cursor across the table. */
 .t-peek{
   position:fixed;top:0;left:0;z-index:60;
   width:min(300px, 26vw);
   aspect-ratio:1 / 1;
+  max-width:100%;
   object-fit:cover;
-  border-radius:10px;
-  box-shadow:0 22px 50px rgba(50,64,79,0.24);
+  border-radius:12px;
   pointer-events:none;
   opacity:0;
   transform:translate(-50%,-50%) scale(.96);
-  transition:opacity .2s ease, transform .3s cubic-bezier(.2,.9,.25,1);
+  transition:opacity .18s ease, transform .3s cubic-bezier(.2,.9,.25,1);
 }
 .t-peek.on{opacity:1;transform:translate(-50%,-50%) scale(1);}
 
@@ -131,6 +170,7 @@
   .t-table td{padding:16px 10px;font-size:15px;}
   .t-table th{padding:0 10px 10px;}
   .t-peek{display:none;}
+  .t-hero{min-height:60vh;}
 }
 /* No cursor-following anything for people who'd rather not. */
 @media(prefers-reduced-motion:reduce){
@@ -154,7 +194,7 @@
   <section class="t-hero" id="hero">
     <div class="t-trail" id="trail"></div>
     <h1 class="t-hero-title">A designer, swimmer &amp; runner optimising for fun.</h1>
-    <div class="t-hint">MOVE YOUR CURSOR</div>
+    <div class="t-hint">Move your cursor</div>
   </section>
 
   <section class="t-intro">
