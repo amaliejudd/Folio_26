@@ -516,9 +516,43 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   /* Most stops have no photo yet. Every one of them showing the same grey
      square made the hover look stuck, so an empty stop shows its own name
      instead. Drop a file into assets/travel/ under the name the row asks
-     for and the photo takes over, no code change. */
-  pimg.addEventListener('error', function(){ peek.classList.add('empty'); });
-  pimg.addEventListener('load',  function(){ peek.classList.remove('empty'); });
+     for and the photo takes over, no code change.
+
+     Each row's photo is fetched as it scrolls into view, which does two
+     things: by the time the cursor reaches the row the image is already
+     decoded, so it appears whole rather than after a blank beat, and rows
+     whose file is missing are marked before they are ever hovered, so they
+     never flash a frame of the wrong thing. */
+  var state = {};   // src -> 'ok' | 'missing'
+
+  function warm(src){
+    if(!src || state[src]) return;
+    var probe = new Image();
+    probe.onload  = function(){ state[src] = 'ok'; };
+    probe.onerror = function(){ state[src] = 'missing'; };
+    probe.src = src;
+  }
+
+  var allRows = body.querySelectorAll('tr[data-img]');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ warm(en.target.getAttribute('data-img')); io.unobserve(en.target); }
+      });
+    }, {rootMargin: '400px 0px'});
+    Array.prototype.forEach.call(allRows, function(r){ io.observe(r); });
+  } else {
+    Array.prototype.forEach.call(allRows, function(r){ warm(r.getAttribute('data-img')); });
+  }
+
+  pimg.addEventListener('error', function(){
+    state[pimg.getAttribute('src')] = 'missing';
+    peek.classList.add('empty');
+  });
+  pimg.addEventListener('load', function(){
+    state[pimg.getAttribute('src')] = 'ok';
+    peek.classList.remove('empty');
+  });
 
   var raf = null, tx = 0, ty = 0;
 
@@ -536,9 +570,17 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
     var src = row.getAttribute('data-img');
     var name = (row.querySelector('.t-place') || {}).textContent || '';
     if(plab) plab.textContent = name.trim();
+
     if(pimg.getAttribute('src') !== src){
-      peek.classList.add('empty');   // until the new file proves otherwise
       pimg.setAttribute('src', src);
+    }
+    /* Only show the name once we know the file isn't there. Anything still
+       unknown stays on the photo path, so a good image never flashes a
+       label on its way in. */
+    if(state[src] === 'missing'){
+      peek.classList.add('empty');
+    } else if(state[src] === 'ok' || (pimg.complete && pimg.naturalWidth > 0)){
+      peek.classList.remove('empty');
     }
     peek.classList.add('on');
   });
