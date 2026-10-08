@@ -1,0 +1,31 @@
+One photo per trip stop, square-ish, named exactly as below.
+Drop them in this folder and they appear on travel.html.
+
+assets/travel/colombo.jpg
+assets/travel/kandy.jpg
+assets/travel/ella.jpg
+assets/travel/yala-national-park.jpg
+assets/travel/hiriketiya.jpg
+assets/travel/weligama.jpg
+assets/travel/galle.jpg
+assets/travel/negombo.jpg
+assets/travel/uluwatu.jpg
+assets/travel/osaka.jpg
+assets/travel/takaragawa-onsen.jpg
+assets/travel/tokyo.jpg
+assets/travel/sapporo.jpg
+assets/travel/copenhagen.jpg
+assets/travel/berlin.jpg
+assets/travel/athens.jpg
+assets/travel/kioni.jpg
+assets/travel/kefalonia.jpg
+assets/travel/naples.jpg
+assets/travel/syracuse.jpg
+assets/travel/palermo.jpg
+assets/travel/nice.jpg
+assets/travel/saint-paul-de-vence.jpg
+assets/travel/roumoules.jpg
+assets/travel/paris.jpg
+assets/travel/lisbon.jpg
+assets/travel/porto.jpg
+assets/travel/amsterdam.jpg
