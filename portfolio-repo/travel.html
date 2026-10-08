@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel (test) | Amalie Judd</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ---------------------------------------------------------------
+   Test page only. Everything lives here rather than in styles.css
+   so it can be deleted in one go if we don't keep it.
+   --------------------------------------------------------------- */
+
+.t-hero{
+  position:relative;
+  min-height:78vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  margin-top:-40px;
+  touch-action:none;
+}
+.t-hero-title{
+  position:relative;
+  z-index:1;
+  margin:0;
+  text-align:center;
+  font-family:var(--sans);
+  font-weight:500;
+  letter-spacing:-0.035em;
+  line-height:0.95;
+  font-size:clamp(44px, 8vw, 104px);
+  max-width:16ch;
+  pointer-events:none;
+  user-select:none;
+}
+/* The images spawn above the headline, like the DDS hero. */
+.t-trail{position:absolute;inset:0;z-index:2;pointer-events:none;}
+.t-trail img{
+  position:absolute;
+  width:clamp(140px, 17vw, 280px);
+  aspect-ratio:3 / 4;
+  object-fit:cover;
+  border-radius:10px;
+  transform:translate(-50%,-50%) scale(.82);
+  opacity:0;
+  will-change:transform, opacity;
+  box-shadow:0 18px 40px rgba(50,64,79,0.18);
+}
+.t-trail img.in{opacity:1;transform:translate(-50%,-50%) scale(1);
+  transition:opacity .22s ease, transform .5s cubic-bezier(.2,.9,.25,1);}
+.t-trail img.out{opacity:0;transform:translate(-50%,-50%) scale(.94);
+  transition:opacity .5s ease, transform .5s ease;}
+
+.t-hint{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  z-index:3;
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  color:var(--text-faint);
+  pointer-events:none;
+}
+
+/* ---- Text block ---- */
+.t-intro{max-width:720px;margin:clamp(60px,9vw,120px) auto 0;}
+.t-intro p{font-size:17px;line-height:1.6;color:var(--text-soft);margin:0 0 18px;}
+.t-intro p:first-child{font-size:22px;line-height:1.45;color:var(--text);}
+.t-intro a{color:var(--accent);text-decoration:underline;}
+
+/* ---- Table ---- */
+.t-table-wrap{margin:clamp(70px,10vw,140px) auto 120px;position:relative;}
+.t-table-head{
+  text-align:center;
+  font-family:var(--sans);font-weight:500;
+  font-size:clamp(22px,3vw,30px);
+  letter-spacing:-0.02em;
+  margin:0 0 34px;
+}
+.t-table{width:100%;border-collapse:collapse;}
+.t-table th{
+  text-align:left;
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-faint);
+  padding:0 16px 12px;
+  border-bottom:1px solid var(--border);
+}
+.t-table td{
+  padding:20px 16px;
+  border-bottom:1px solid var(--border);
+  vertical-align:middle;
+  font-size:16px;
+}
+.t-table tbody tr{transition:background-color .18s ease;}
+.t-table tbody tr:hover{background:var(--accent-tint);}
+.t-date{
+  font-family:var(--mono);font-size:13px;color:var(--text-soft);
+  white-space:nowrap;width:1%;
+}
+.t-place{font-weight:500;}
+.t-tag{
+  display:inline-block;
+  margin-left:10px;
+  padding:3px 11px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+  color:var(--text-soft);
+  vertical-align:middle;
+}
+.t-country{color:var(--text-soft);white-space:nowrap;}
+.t-end{width:1%;text-align:right;color:var(--text-faint);font-size:18px;}
+
+/* The preview that follows the cursor across the table. */
+.t-peek{
+  position:fixed;top:0;left:0;z-index:60;
+  width:min(300px, 26vw);
+  aspect-ratio:1 / 1;
+  object-fit:cover;
+  border-radius:10px;
+  box-shadow:0 22px 50px rgba(50,64,79,0.24);
+  pointer-events:none;
+  opacity:0;
+  transform:translate(-50%,-50%) scale(.96);
+  transition:opacity .2s ease, transform .3s cubic-bezier(.2,.9,.25,1);
+}
+.t-peek.on{opacity:1;transform:translate(-50%,-50%) scale(1);}
+
+@media(max-width:700px){
+  .t-tag{display:none;}
+  .t-table td{padding:16px 10px;font-size:15px;}
+  .t-table th{padding:0 10px 10px;}
+  .t-peek{display:none;}
+}
+/* No cursor-following anything for people who'd rather not. */
+@media(prefers-reduced-motion:reduce){
+  .t-trail{display:none;}
+  .t-peek{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-item">Work</a>
+  <a href="fun.html" class="nav-item">Fun</a>
+  <a href="about.html" class="nav-item">About</a>
+  <a href="Amalie_Judd_Resume.pdf" class="nav-item nav-resume">Resume</a>
+</nav>
+<div class="status-chip"><span class="dot">✦</span> AMALIEJUDD</div>
+
+<main class="wrap">
+
+  <section class="t-hero" id="hero">
+    <div class="t-trail" id="trail"></div>
+    <h1 class="t-hero-title">A designer, swimmer &amp; runner optimising for fun.</h1>
+    <div class="t-hint">MOVE YOUR CURSOR</div>
+  </section>
+
+  <section class="t-intro">
+    <p>I&rsquo;m a Senior UX Designer based in Sydney with around eight years of experience turning gnarly problems into clear, considered products.</p>
+    <p>My work spans retail, energy, utilities and aviation, mostly large-scale internal tools and platforms, always with a focus on the people actually using the thing. I started out studying graphic design at the University of Wollongong before finishing a Bachelor of Design Computing at the University of Sydney.</p>
+    <p>I joined Designit in January 2022 and have since led end-to-end design for WooliesX, Air New Zealand, Origin Energy and Sydney Water. I work across research, interaction design, design systems and prototyping, and I&rsquo;m at my best embedded in a team who care about getting the details right.</p>
+    <p>To befriend me or hire me, reach out on <a href="https://www.linkedin.com/in/amalie-judd-a41129177/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, by <a href="mailto:amaliejudd@outlook.com">email</a>, or download my <a href="Amalie_Judd_Resume.pdf">CV</a>.</p>
+  </section>
+
+  <section class="t-table-wrap">
+    <h2 class="t-table-head">Trips</h2>
+    <table class="t-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Place</th>
+          <th>Country</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="trips">
+        <!-- PLACEHOLDER ROWS. Swap for the real list from Notion. -->
+        <tr data-img="assets/etna.jpg">
+          <td class="t-date">JUN 2025</td>
+          <td><span class="t-place">Mount Etna</span><span class="t-tag">Hike</span></td>
+          <td class="t-country">Sicily &ndash; Italy</td>
+          <td class="t-end">+</td>
+        </tr>
+        <tr data-img="assets/niseko.jpg">
+          <td class="t-date">JAN 2025</td>
+          <td><span class="t-place">Niseko</span><span class="t-tag">Ski</span></td>
+          <td class="t-country">Hokkaido &ndash; Japan</td>
+          <td class="t-end">+</td>
+        </tr>
+        <tr data-img="assets/sigiriya.jpg">
+          <td class="t-date">AUG 2024</td>
+          <td><span class="t-place">Sigiriya</span><span class="t-tag">Climb</span></td>
+          <td class="t-country">Sri Lanka</td>
+          <td class="t-end">+</td>
+        </tr>
+        <tr data-img="assets/gradient.jpg">
+          <td class="t-date">PLACEHOLDER</td>
+          <td><span class="t-place">Another trip</span><span class="t-tag">Tag</span></td>
+          <td class="t-country">Somewhere</td>
+          <td class="t-end">+</td>
+        </tr>
+        <tr data-img="assets/gradient.jpg">
+          <td class="t-date">PLACEHOLDER</td>
+          <td><span class="t-place">Another trip</span><span class="t-tag">Tag</span></td>
+          <td class="t-country">Somewhere</td>
+          <td class="t-end">+</td>
+        </tr>
+      </tbody>
+    </table>
+    <img class="t-peek" id="peek" alt="" aria-hidden="true">
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+<script>
+(function(){
+  /* ----- Hero drag trail -------------------------------------------------
+     Spawn an image once the cursor has travelled far enough since the last
+     one. Distance rather than time, so a slow drag still lays a trail and a
+     fast flick doesn't dump twenty images in one frame. */
+
+  // PLACEHOLDER POOL. Swap for the 8-12 travel photos.
+  var POOL = [
+    'assets/etna.jpg',
+    'assets/niseko.jpg',
+    'assets/sigiriya.jpg',
+    'assets/airnz-koru.jpg',
+    'assets/instore-research.jpg',
+    'assets/wedding-cover.jpg',
+    'assets/gradient.jpg'
+  ];
+
+  var hero  = document.getElementById('hero');
+  var trail = document.getElementById('trail');
+  if(!hero || !trail) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  POOL.forEach(function(src){ var p = new Image(); p.src = src; });
+
+  var GAP = 110;      // px of travel between spawns
+  var LIFE = 900;     // ms before it starts fading
+  var MAX = 7;        // how many can be on screen at once
+  var last = null, i = 0, live = [];
+
+  function spawn(x, y){
+    var img = document.createElement('img');
+    img.src = POOL[i % POOL.length];
+    img.alt = '';
+    i++;
+    img.style.left = x + 'px';
+    img.style.top  = y + 'px';
+    trail.appendChild(img);
+    live.push(img);
+
+    requestAnimationFrame(function(){ img.classList.add('in'); });
+
+    while(live.length > MAX) retire(live.shift());
+    setTimeout(function(){
+      var at = live.indexOf(img);
+      if(at > -1){ live.splice(at,1); retire(img); }
+    }, LIFE);
+  }
+
+  function retire(img){
+    if(!img) return;
+    img.classList.remove('in');
+    img.classList.add('out');
+    setTimeout(function(){ if(img.parentNode) img.parentNode.removeChild(img); }, 520);
+  }
+
+  hero.addEventListener('pointermove', function(e){
+    var r = hero.getBoundingClientRect();
+    var x = e.clientX - r.left, y = e.clientY - r.top;
+    if(last){
+      var dx = x - last.x, dy = y - last.y;
+      if(Math.sqrt(dx*dx + dy*dy) < GAP) return;
+    }
+    last = {x:x, y:y};
+    spawn(x, y);
+  });
+
+  hero.addEventListener('pointerleave', function(){ last = null; });
+
+
+  /* ----- Table row preview ---------------------------------------------- */
+  var peek = document.getElementById('peek');
+  var body = document.getElementById('trips');
+  if(!peek || !body) return;
+
+  var raf = null, tx = 0, ty = 0;
+
+  function place(){
+    raf = null;
+    peek.style.transform = 'translate(-50%,-50%) scale(' +
+      (peek.classList.contains('on') ? 1 : 0.96) + ')';
+    peek.style.left = tx + 'px';
+    peek.style.top  = ty + 'px';
+  }
+
+  body.addEventListener('pointerover', function(e){
+    var row = e.target.closest('tr[data-img]');
+    if(!row) return;
+    var src = row.getAttribute('data-img');
+    if(peek.getAttribute('src') !== src) peek.src = src;
+    peek.classList.add('on');
+  });
+
+  body.addEventListener('pointermove', function(e){
+    tx = e.clientX; ty = e.clientY;
+    if(!raf) raf = requestAnimationFrame(place);
+  });
+
+  body.addEventListener('pointerleave', function(){
+    peek.classList.remove('on');
+  });
+})();
+</script>
+</body>
+</html>
