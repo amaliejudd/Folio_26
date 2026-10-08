@@ -15,7 +15,7 @@ assets/travel/syracuse.jpg
 assets/travel/palermo.jpg
 assets/travel/nice.jpg
 assets/travel/saint-paul-de-vence.jpg
-assets/travel/roumoules.jpg
+assets/travel/gorges-du-verdon.jpg
 assets/travel/paris.jpg
 assets/travel/lisbon.jpg
 assets/travel/porto.jpg
