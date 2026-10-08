@@ -152,8 +152,12 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 
 /* The preview that follows the cursor across the table. */
 .t-peek{
+  /* Hidden by default and switched on only where there's a real cursor to
+     follow. Width, not pointer type, used to decide this, which killed it
+     in a narrow side panel. */
+  display:none;
   position:fixed;top:0;left:0;z-index:60;
-  width:min(300px, 26vw);
+  width:min(300px, 42vw);
   aspect-ratio:1 / 1;
   max-width:100%;
   object-fit:cover;
@@ -165,11 +169,13 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 }
 .t-peek.on{opacity:1;transform:translate(-50%,-50%) scale(1);}
 
-@media(max-width:700px){
+@media(hover:hover) and (pointer:fine){
+  .t-peek{display:block;}
+}
+@media(max-width:620px){
   .t-tag{display:none;}
   .t-table td{padding:16px 10px;font-size:15px;}
   .t-table th{padding:0 10px 10px;}
-  .t-peek{display:none;}
   .t-hero{min-height:60vh;}
 }
 /* No cursor-following anything for people who'd rather not. */
