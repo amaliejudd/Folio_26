@@ -18,6 +18,7 @@
    --------------------------------------------------------------- */
 :root{
   --t-bg:#efede7;        /* warm cream, slightly green-biased so it isn't beige */
+  --t-sheet:#ffffff;     /* the panel that scrolls up over the hero */
   --t-ink:#101010;
   --t-soft:rgba(16,16,16,0.56);
   --t-faint:rgba(16,16,16,0.34);
@@ -34,15 +35,32 @@ html, body, a, .t-hero, .t-table tbody tr{cursor:auto !important;}
 body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 .status-chip{display:none;}
 
+/* The hero pins to the top and the white sheet below scrolls up over it,
+   so the images are still moving behind the table as you read it. */
+.t-main{padding-top:0;}
 .t-hero{
-  position:relative;
-  min-height:76vh;
+  position:sticky;
+  top:0;
+  z-index:0;
+  height:100svh;
+  min-height:480px;
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
-  margin-top:-40px;
+  padding:0 24px;
   touch-action:none;
+}
+.t-sheet{
+  position:relative;
+  z-index:2;
+  background:var(--t-sheet);
+  border-radius:48px 48px 0 0;
+  padding-block:clamp(56px,7vw,96px) 0;
+  min-height:60vh;
+}
+@media(max-width:620px){
+  .t-sheet{border-radius:28px 28px 0 0;}
 }
 .t-hero-title{
   position:relative;
@@ -87,7 +105,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 }
 
 /* ---- Text block ---- */
-.t-intro{max-width:680px;margin:clamp(50px,8vw,110px) auto 0;}
+.t-intro{max-width:680px;margin:0 auto;}
 .t-intro p{font-size:16px;line-height:1.65;color:var(--t-soft);margin:0 0 18px;}
 .t-intro p:first-child{
   font-family:var(--t-display);
@@ -100,7 +118,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 .t-intro a{color:var(--t-ink);text-decoration:underline;text-underline-offset:3px;}
 
 /* ---- Table ---- */
-.t-table-wrap{margin:clamp(70px,10vw,140px) auto 120px;position:relative;}
+.t-table-wrap{margin:clamp(70px,10vw,140px) auto 0;padding-bottom:clamp(90px,12vw,160px);position:relative;}
 .t-table-head{
   text-align:center;
   font-family:var(--t-display);font-weight:500;
@@ -238,13 +256,16 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 </nav>
 <div class="status-chip"><span class="dot">✦</span> AMALIEJUDD</div>
 
-<main class="wrap">
+<main class="t-main">
 
   <section class="t-hero" id="hero">
     <div class="t-trail" id="trail"></div>
     <h1 class="t-hero-title">A designer, swimmer &amp; runner optimising for fun.</h1>
     <div class="t-hint">Move your cursor</div>
   </section>
+
+  <div class="t-sheet">
+    <div class="wrap">
 
   <section class="t-intro">
     <p>I&rsquo;m a Senior UX Designer based in Sydney with around eight years of experience turning gnarly problems into clear, considered products.</p>
@@ -462,6 +483,8 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
     <div class="t-peek" id="peek" aria-hidden="true"><img id="peek-img" alt=""><span class="t-peek-label" id="peek-label"></span></div>
   </section>
 
+    </div>
+  </div>
 </main>
 
 <script src="script.js"></script>
