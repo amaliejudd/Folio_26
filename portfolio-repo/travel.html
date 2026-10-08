@@ -68,7 +68,6 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   aspect-ratio:3 / 4;
   max-width:100%;
   object-fit:cover;
-  border-radius:14px;
   transform:translate(-50%,-50%) scale(.84);
   opacity:0;
   will-change:transform, opacity;
@@ -160,14 +159,35 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   width:min(300px, 42vw);
   aspect-ratio:1 / 1;
   max-width:100%;
-  object-fit:cover;
-  border-radius:12px;
+  overflow:hidden;
+  background:var(--t-bg);
   pointer-events:none;
   opacity:0;
   transform:translate(-50%,-50%) scale(.96);
   transition:opacity .18s ease, transform .3s cubic-bezier(.2,.9,.25,1);
 }
 .t-peek.on{opacity:1;transform:translate(-50%,-50%) scale(1);}
+.t-peek img{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+/* Stops with no photo yet. A shared grey square for all of them made the
+   hover look broken, so name the place instead. */
+.t-peek-label{
+  position:absolute;inset:0;
+  display:none;
+  align-items:center;justify-content:center;
+  padding:18px;
+  text-align:center;
+  background:var(--t-ink);
+  color:var(--t-bg);
+  font-family:var(--t-display);
+  font-size:clamp(15px,2.2vw,22px);
+  line-height:1.15;
+  letter-spacing:-0.02em;
+  text-wrap:balance;
+}
+.t-peek.empty img{display:none;}
+.t-peek.empty .t-peek-label{display:flex;}
 
 @media(hover:hover) and (pointer:fine){
   .t-peek{display:block;}
@@ -410,7 +430,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
         </tr>
       </tbody>
     </table>
-    <img class="t-peek" id="peek" alt="" aria-hidden="true">
+    <div class="t-peek" id="peek" aria-hidden="true"><img id="peek-img" alt=""><span class="t-peek-label" id="peek-label"></span></div>
   </section>
 
 </main>
@@ -487,17 +507,18 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 
 
   /* ----- Table row preview ---------------------------------------------- */
-  var peek = document.getElementById('peek');
-  var body = document.getElementById('trips');
-  if(!peek || !body) return;
+  var peek  = document.getElementById('peek');
+  var pimg  = document.getElementById('peek-img');
+  var plab  = document.getElementById('peek-label');
+  var body  = document.getElementById('trips');
+  if(!peek || !pimg || !body) return;
 
-  /* Most stops have no photo yet. Rather than a broken image, fall back to the
-     gradient so the hover still reads as working. Drop a file into
-     assets/travel/ with the name the row asks for and it takes over. */
-  var FALLBACK = 'assets/gradient.jpg';
-  peek.addEventListener('error', function(){
-    if(peek.getAttribute('src') !== FALLBACK) peek.src = FALLBACK;
-  });
+  /* Most stops have no photo yet. Every one of them showing the same grey
+     square made the hover look stuck, so an empty stop shows its own name
+     instead. Drop a file into assets/travel/ under the name the row asks
+     for and the photo takes over, no code change. */
+  pimg.addEventListener('error', function(){ peek.classList.add('empty'); });
+  pimg.addEventListener('load',  function(){ peek.classList.remove('empty'); });
 
   var raf = null, tx = 0, ty = 0;
 
@@ -513,7 +534,12 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
     var row = e.target.closest('tr[data-img]');
     if(!row) return;
     var src = row.getAttribute('data-img');
-    if(peek.getAttribute('src') !== src) peek.src = src;
+    var name = (row.querySelector('.t-place') || {}).textContent || '';
+    if(plab) plab.textContent = name.trim();
+    if(pimg.getAttribute('src') !== src){
+      peek.classList.add('empty');   // until the new file proves otherwise
+      pimg.setAttribute('src', src);
+    }
     peek.classList.add('on');
   });
 
