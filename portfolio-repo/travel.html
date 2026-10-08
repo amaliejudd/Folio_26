@@ -126,7 +126,29 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   color:var(--t-ink);
 }
 .t-table tbody tr{background:transparent;}
-.t-table tbody tr:hover{background:var(--t-hl);}
+.t-table tbody tr:not(.t-group):hover{background:var(--t-hl);}
+
+/* One header row per trip. It carries the year and the span, which lets the
+   rows under it go back to day numbers without repeating 'MAR 2026' eight
+   times down the column. */
+.t-group td{
+  padding:46px 16px 12px;
+  border-bottom:1px solid var(--t-ink);
+}
+.t-table tbody tr:first-child .t-group,
+.t-group:first-child td{padding-top:26px;}
+.t-group-name{
+  font-family:var(--t-display);
+  font-size:clamp(19px,2.4vw,26px);
+  font-weight:500;
+  letter-spacing:-0.025em;
+  margin-right:16px;
+}
+.t-group-meta{
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--t-soft);
+  white-space:nowrap;
+}
 .t-date{
   font-size:13px;color:var(--t-soft);
   white-space:nowrap;width:1%;letter-spacing:.02em;
@@ -193,7 +215,8 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   .t-peek{display:block;}
 }
 @media(max-width:620px){
-  .t-tag{display:none;}
+  .t-group-name{display:block;margin-right:0;}
+  .t-group td{padding:34px 10px 10px;}
   .t-table td{padding:16px 10px;font-size:15px;}
   .t-table th{padding:0 10px 10px;}
   .t-hero{min-height:60vh;}
@@ -242,189 +265,195 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
         </tr>
       </thead>
       <tbody id="trips">
+        <tr class="t-group">
+          <td colspan="4"><span class="t-group-name">Sri Lanka &rsquo;26</span><span class="t-group-meta">11&ndash;29 MAR 2026 &middot; 8 stops</span></td>
+        </tr>
         <tr data-img="assets/travel/colombo.jpg">
-          <td class="t-date">MAR 2026</td>
-          <td><span class="t-place">Colombo</span><span class="t-tag">Sri Lanka &rsquo;26</span></td>
+          <td class="t-date">11&ndash;13 MAR</td>
+          <td><span class="t-place">Colombo</span></td>
           <td class="t-country">Sri Lanka</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/sigiriya.jpg">
-          <td class="t-date">MAR 2026</td>
-          <td><span class="t-place">Sigiriya</span><span class="t-tag">Sri Lanka &rsquo;26</span></td>
+          <td class="t-date">13&ndash;14 MAR</td>
+          <td><span class="t-place">Sigiriya</span></td>
           <td class="t-country">Sri Lanka</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/kandy.jpg">
-          <td class="t-date">MAR 2026</td>
-          <td><span class="t-place">Kandy</span><span class="t-tag">Sri Lanka &rsquo;26</span></td>
+          <td class="t-date">14&ndash;16 MAR</td>
+          <td><span class="t-place">Kandy</span></td>
           <td class="t-country">Sri Lanka</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/ella.jpg">
-          <td class="t-date">MAR 2026</td>
-          <td><span class="t-place">Ella</span><span class="t-tag">Sri Lanka &rsquo;26</span></td>
+          <td class="t-date">16&ndash;19 MAR</td>
+          <td><span class="t-place">Ella</span></td>
           <td class="t-country">Sri Lanka</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/yala-national-park.jpg">
-          <td class="t-date">MAR 2026</td>
-          <td><span class="t-place">Yala National Park</span><span class="t-tag">Sri Lanka &rsquo;26</span></td>
+          <td class="t-date">19&ndash;21 MAR</td>
+          <td><span class="t-place">Yala National Park</span></td>
           <td class="t-country">Sri Lanka</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/hiriketiya.jpg">
-          <td class="t-date">MAR 2026</td>
-          <td><span class="t-place">Hiriketiya</span><span class="t-tag">Sri Lanka &rsquo;26</span></td>
+          <td class="t-date">21&ndash;24 MAR</td>
+          <td><span class="t-place">Hiriketiya</span></td>
           <td class="t-country">Sri Lanka</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/weligama.jpg">
-          <td class="t-date">MAR 2026</td>
-          <td><span class="t-place">Weligama</span><span class="t-tag">Sri Lanka &rsquo;26</span></td>
+          <td class="t-date">24&ndash;26 MAR</td>
+          <td><span class="t-place">Weligama</span></td>
           <td class="t-country">Sri Lanka</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/galle.jpg">
-          <td class="t-date">MAR 2026</td>
-          <td><span class="t-place">Galle</span><span class="t-tag">Sri Lanka &rsquo;26</span></td>
+          <td class="t-date">26&ndash;29 MAR</td>
+          <td><span class="t-place">Galle</span></td>
           <td class="t-country">Sri Lanka</td>
           <td class="t-end">+</td>
         </tr>
-        <tr data-img="assets/travel/negombo.jpg">
-          <td class="t-date">MAR 2026</td>
-          <td><span class="t-place">Negombo</span><span class="t-tag">Sri Lanka &rsquo;26</span></td>
-          <td class="t-country">Sri Lanka</td>
-          <td class="t-end">+</td>
+        <tr class="t-group">
+          <td colspan="4"><span class="t-group-name">Bali &rsquo;25</span><span class="t-group-meta">26 NOV &ndash; 1 DEC 2025 &middot; 1 stop</span></td>
         </tr>
         <tr data-img="assets/travel/uluwatu.jpg">
-          <td class="t-date">NOV &ndash; DEC 2025</td>
-          <td><span class="t-place">Uluwatu</span><span class="t-tag">Bali &rsquo;25</span></td>
+          <td class="t-date">26 NOV &ndash; 1 DEC</td>
+          <td><span class="t-place">Uluwatu</span></td>
           <td class="t-country">Indonesia</td>
           <td class="t-end">+</td>
         </tr>
+        <tr class="t-group">
+          <td colspan="4"><span class="t-group-name">Japan &rsquo;24</span><span class="t-group-meta">22 NOV &ndash; 10 DEC 2024 &middot; 5 stops</span></td>
+        </tr>
         <tr data-img="assets/travel/osaka.jpg">
-          <td class="t-date">NOV 2024</td>
-          <td><span class="t-place">Osaka</span><span class="t-tag">Japan &rsquo;24</span></td>
+          <td class="t-date">22&ndash;25 NOV</td>
+          <td><span class="t-place">Osaka</span></td>
           <td class="t-country">Japan</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/takaragawa-onsen.jpg">
-          <td class="t-date">NOV 2024</td>
-          <td><span class="t-place">Takaragawa Onsen</span><span class="t-tag">Japan &rsquo;24</span></td>
+          <td class="t-date">25&ndash;27 NOV</td>
+          <td><span class="t-place">Takaragawa Onsen</span></td>
           <td class="t-country">Japan</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/tokyo.jpg">
-          <td class="t-date">NOV &ndash; DEC 2024</td>
-          <td><span class="t-place">Tokyo</span><span class="t-tag">Japan &rsquo;24</span></td>
+          <td class="t-date">27 NOV &ndash; 1 DEC</td>
+          <td><span class="t-place">Tokyo</span></td>
           <td class="t-country">Japan</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/sapporo.jpg">
-          <td class="t-date">DEC 2024</td>
-          <td><span class="t-place">Sapporo</span><span class="t-tag">Japan &rsquo;24</span></td>
+          <td class="t-date">1&ndash;4 DEC</td>
+          <td><span class="t-place">Sapporo</span></td>
           <td class="t-country">Japan</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/niseko.jpg">
-          <td class="t-date">DEC 2024</td>
-          <td><span class="t-place">Niseko</span><span class="t-tag">Japan &rsquo;24</span></td>
+          <td class="t-date">4&ndash;10 DEC</td>
+          <td><span class="t-place">Niseko</span></td>
           <td class="t-country">Japan</td>
           <td class="t-end">+</td>
         </tr>
+        <tr class="t-group">
+          <td colspan="4"><span class="t-group-name">Europe &rsquo;23</span><span class="t-group-meta">14 JUN &ndash; 7 AUG 2023 &middot; 16 stops</span></td>
+        </tr>
         <tr data-img="assets/travel/copenhagen.jpg">
-          <td class="t-date">JUN 2023</td>
-          <td><span class="t-place">Copenhagen</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">14&ndash;16 JUN</td>
+          <td><span class="t-place">Copenhagen</span></td>
           <td class="t-country">Denmark</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/berlin.jpg">
-          <td class="t-date">JUN 2023</td>
-          <td><span class="t-place">Berlin</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">16&ndash;21 JUN</td>
+          <td><span class="t-place">Berlin</span></td>
           <td class="t-country">Germany</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/athens.jpg">
-          <td class="t-date">JUN 2023</td>
-          <td><span class="t-place">Athens</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">21&ndash;24 JUN</td>
+          <td><span class="t-place">Athens</span></td>
           <td class="t-country">Greece</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/kioni.jpg">
-          <td class="t-date">JUN 2023</td>
-          <td><span class="t-place">Kioni</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">24&ndash;28 JUN</td>
+          <td><span class="t-place">Kioni</span></td>
           <td class="t-country">Greece</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/kefalonia.jpg">
-          <td class="t-date">JUN 2023</td>
-          <td><span class="t-place">Kefalonia</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">28 JUN</td>
+          <td><span class="t-place">Kefalonia</span></td>
           <td class="t-country">Greece</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/naples.jpg">
-          <td class="t-date">JUN 2023</td>
-          <td><span class="t-place">Naples</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">28&ndash;30 JUN</td>
+          <td><span class="t-place">Naples</span></td>
           <td class="t-country">Italy</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/etna.jpg">
-          <td class="t-date">JUN &ndash; JUL 2023</td>
-          <td><span class="t-place">Catania</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">30 JUN &ndash; 3 JUL</td>
+          <td><span class="t-place">Catania</span></td>
           <td class="t-country">Italy</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/syracuse.jpg">
-          <td class="t-date">JUL 2023</td>
-          <td><span class="t-place">Syracuse</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">3&ndash;6 JUL</td>
+          <td><span class="t-place">Syracuse</span></td>
           <td class="t-country">Italy</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/palermo.jpg">
-          <td class="t-date">JUL 2023</td>
-          <td><span class="t-place">Palermo</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">6&ndash;8 JUL</td>
+          <td><span class="t-place">Palermo</span></td>
           <td class="t-country">Italy</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/nice.jpg">
-          <td class="t-date">JUL 2023</td>
-          <td><span class="t-place">Nice</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">8&ndash;12 JUL</td>
+          <td><span class="t-place">Nice</span></td>
           <td class="t-country">France</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/saint-paul-de-vence.jpg">
-          <td class="t-date">JUL 2023</td>
-          <td><span class="t-place">Saint-Paul-de-Vence</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">12&ndash;14 JUL</td>
+          <td><span class="t-place">Saint-Paul-de-Vence</span></td>
           <td class="t-country">France</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/roumoules.jpg">
-          <td class="t-date">JUL 2023</td>
-          <td><span class="t-place">Roumoules</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">14&ndash;17 JUL</td>
+          <td><span class="t-place">Roumoules</span></td>
           <td class="t-country">France</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/paris.jpg">
-          <td class="t-date">JUL 2023</td>
-          <td><span class="t-place">Paris</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">17&ndash;23 JUL</td>
+          <td><span class="t-place">Paris</span></td>
           <td class="t-country">France</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/lisbon.jpg">
-          <td class="t-date">JUL 2023</td>
-          <td><span class="t-place">Lisbon</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">23&ndash;27 JUL</td>
+          <td><span class="t-place">Lisbon</span></td>
           <td class="t-country">Portugal</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/porto.jpg">
-          <td class="t-date">JUL 2023</td>
-          <td><span class="t-place">Porto</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">27&ndash;30 JUL</td>
+          <td><span class="t-place">Porto</span></td>
           <td class="t-country">Portugal</td>
           <td class="t-end">+</td>
         </tr>
         <tr data-img="assets/travel/amsterdam.jpg">
-          <td class="t-date">JUL &ndash; AUG 2023</td>
-          <td><span class="t-place">Amsterdam</span><span class="t-tag">Europe &rsquo;23</span></td>
+          <td class="t-date">30 JUL &ndash; 7 AUG</td>
+          <td><span class="t-place">Amsterdam</span></td>
           <td class="t-country">Netherlands</td>
           <td class="t-end">+</td>
         </tr>

@@ -1,7 +1,6 @@
-One photo per trip stop, square-ish, named exactly as below.
+One photo per trip stop, portrait, named exactly as below.
 Drop them in this folder and they appear on travel.html.
 
-assets/travel/negombo.jpg
 assets/travel/uluwatu.jpg
 assets/travel/osaka.jpg
 assets/travel/takaragawa-onsen.jpg
