@@ -814,7 +814,9 @@ footer.site-footer .wrap{
 .t-strip-rail{
   overflow-x:auto;
   overflow-y:hidden;
-  scroll-snap-type:x proximity;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
   margin-inline:calc(50% - 50vw);
   padding-inline:max(24px, calc(50vw - 610px));
@@ -823,9 +825,12 @@ footer.site-footer .wrap{
   scroll-padding-inline:max(24px, calc(50vw - 610px));
   padding-bottom:18px;
   cursor:grab;
-  scrollbar-width:thin;
+  scrollbar-width:none;
 }
-.t-strip-rail.is-dragging{cursor:grabbing;user-select:none;}
+.t-strip-rail::-webkit-scrollbar{display:none;}
+/* While dragging, snapping and easing are switched off so the row follows
+   the pointer exactly; on release they come back and glide to the nearest card. */
+.t-strip-rail.is-dragging{cursor:grabbing;user-select:none;scroll-snap-type:none;scroll-behavior:auto;}
 .t-strip{
   display:flex;
   gap:clamp(18px,2.4vw,34px);

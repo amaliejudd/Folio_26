@@ -297,21 +297,33 @@
   });
 
   var down = false, startX = 0, startLeft = 0, moved = 0;
+  var lastX = 0, lastT = 0, velocity = 0;   // px per ms, for the throw on release
   rail.addEventListener('pointerdown', function(e){
     if(e.pointerType === 'touch') return;   // touch already pans natively
     e.preventDefault();                      // and no native image drag
-    down = true; moved = 0;
-    startX = e.clientX; startLeft = rail.scrollLeft;
+    down = true; moved = 0; velocity = 0;
+    startX = lastX = e.clientX; lastT = performance.now(); startLeft = rail.scrollLeft;
     rail.classList.add('is-dragging');
   });
   window.addEventListener('pointermove', function(e){
     if(!down) return;
-    var dx = e.clientX - startX;
+    var dx = e.clientX - startX, now = performance.now();
     moved = Math.max(moved, Math.abs(dx));
     rail.scrollLeft = startLeft - dx;
+    var dt = now - lastT;
+    if(dt > 0){ velocity = 0.8 * velocity + 0.2 * ((lastX - e.clientX) / dt); }
+    lastX = e.clientX; lastT = now;
   });
   window.addEventListener('pointerup', function(){
-    down = false; rail.classList.remove('is-dragging');
+    if(!down) return;
+    down = false;
+    var from = rail.scrollLeft;
+    // Throw a little way in the direction of the flick, then let the
+    // snap points settle it on a card.
+    var throwTo = from + velocity * 320;
+    rail.classList.remove('is-dragging');
+    rail.scrollLeft = from;
+    rail.scrollTo({ left: throwTo, behavior: 'smooth' });
   });
   rail.addEventListener('click', function(e){ if(moved > 6) e.preventDefault(); }, true);
 })();
