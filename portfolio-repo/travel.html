@@ -22,6 +22,7 @@
   --t-soft:rgba(16,16,16,0.56);
   --t-faint:rgba(16,16,16,0.34);
   --t-line:rgba(16,16,16,0.13);
+  --t-ph:#dcdad3;        /* placeholder tile, a shade down from the ground */
   --t-hl:#f0ef4e;        /* the highlight yellow */
   --t-display:'Outfit', 'Helvetica Neue', Arial, sans-serif;
   --t-body:'DM Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -86,6 +87,8 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   border-radius:2px;
 }
 .cl-soft{border-radius:clamp(10px,1.2vw,20px);}
+/* Standing in until the photos land. */
+.is-placeholder{background:var(--t-ph);}
 .t-cl img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;}
 
 /* Sizes. The unit scales with the viewport so the band keeps its shape. */
@@ -252,28 +255,36 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
     <h1 class="t-hero-title">A designer, swimmer &amp; runner optimising for fun.</h1>
     <div class="t-collage" aria-hidden="true">
       <div class="t-cl-col cl-drop-2">
-        <figure class="t-cl cl-s cl-soft"><img src="assets/travel/colombo.jpg" alt="" draggable="false"></figure>
-        <figure class="t-cl cl-m"><img src="assets/travel/hiriketiya.jpg" alt="" draggable="false"></figure>
+        <figure class="t-cl cl-s cl-soft is-placeholder"></figure>
+        <figure class="t-cl cl-m is-placeholder"></figure>
       </div>
       <div class="t-cl-col cl-drop-0">
-        <figure class="t-cl cl-xl"><img src="assets/travel/ella.jpg" alt="" draggable="false"></figure>
-        <figure class="t-cl cl-wide cl-soft"><img src="assets/travel/galle.jpg" alt="" draggable="false"></figure>
-      </div>
-      <div class="t-cl-col cl-drop-3">
-        <figure class="t-cl cl-round"><img src="assets/travel/kandy.jpg" alt="" draggable="false"></figure>
+        <figure class="t-cl cl-xl is-placeholder"></figure>
+        <figure class="t-cl cl-wide cl-soft is-placeholder"></figure>
       </div>
       <div class="t-cl-col cl-drop-4">
-        <figure class="t-cl cl-m"><img src="assets/travel/weligama.jpg" alt="" draggable="false"></figure>
+        <figure class="t-cl cl-round is-placeholder"></figure>
+        <figure class="t-cl cl-m is-placeholder"></figure>
       </div>
       <div class="t-cl-col cl-drop-1">
-        <figure class="t-cl cl-xl"><img src="assets/travel/yala-national-park.jpg" alt="" draggable="false"></figure>
-        <figure class="t-cl cl-m cl-soft"><img src="assets/etna.jpg" alt="" draggable="false"></figure>
+        <figure class="t-cl cl-m is-placeholder"></figure>
+        <figure class="t-cl cl-l cl-soft is-placeholder"></figure>
       </div>
       <div class="t-cl-col cl-drop-3">
-        <figure class="t-cl cl-l"><img src="assets/niseko.jpg" alt="" draggable="false"></figure>
+        <figure class="t-cl cl-wide is-placeholder"></figure>
+        <figure class="t-cl cl-s is-placeholder"></figure>
       </div>
-      <div class="t-cl-col cl-drop-2">
-        <figure class="t-cl cl-m"><img src="assets/travel/sigiriya.jpg" alt="" draggable="false"></figure>
+      <div class="t-cl-col cl-drop-0">
+        <figure class="t-cl cl-xl is-placeholder"></figure>
+        <figure class="t-cl cl-round-s is-placeholder"></figure>
+      </div>
+      <div class="t-cl-col cl-drop-4">
+        <figure class="t-cl cl-l cl-soft is-placeholder"></figure>
+        <figure class="t-cl cl-m is-placeholder"></figure>
+      </div>
+      <div class="t-cl-col cl-drop-1">
+        <figure class="t-cl cl-m is-placeholder"></figure>
+        <figure class="t-cl cl-round is-placeholder"></figure>
       </div>
     </div>
   </section>
