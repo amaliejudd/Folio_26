@@ -1,28 +1,24 @@
-One photo per trip stop, portrait, named exactly as below.
+One photo per stop, portrait, named exactly as below.
 Drop them in this folder and they appear on travel.html.
 
-assets/travel/osaka.jpg
-assets/travel/takaragawa-onsen.jpg
-assets/travel/tokyo.jpg
-assets/travel/sapporo.jpg
-assets/travel/copenhagen.jpg
-assets/travel/berlin.jpg
-assets/travel/athens.jpg
-assets/travel/kioni.jpg
-assets/travel/kefalonia.jpg
-assets/travel/naples.jpg
-assets/travel/syracuse.jpg
-assets/travel/palermo.jpg
-assets/travel/nice.jpg
-assets/travel/saint-paul-de-vence.jpg
-assets/travel/gorges-du-verdon.jpg
-assets/travel/paris.jpg
-assets/travel/lisbon.jpg
-assets/travel/porto.jpg
 assets/travel/amsterdam.jpg
-assets/travel/bali-warung.jpg
-assets/travel/bali-beach-hopping.jpg
-assets/travel/bali-nusa-penida.jpg
-assets/travel/bali-il-salotto.jpg
-assets/travel/bali-hatch-markets.jpg
-assets/travel/bali-karma.jpg
+assets/travel/athens.jpg
+assets/travel/berlin.jpg
+assets/travel/copenhagen.jpg
+assets/travel/gorges-du-verdon.jpg
+assets/travel/kefalonia.jpg
+assets/travel/kioni.jpg
+assets/travel/lisbon.jpg
+assets/travel/minakami.jpg
+assets/travel/naples.jpg
+assets/travel/nice.jpg
+assets/travel/nusa-penida.jpg
+assets/travel/osaka.jpg
+assets/travel/palermo.jpg
+assets/travel/paris.jpg
+assets/travel/porto.jpg
+assets/travel/saint-paul-de-vence.jpg
+assets/travel/sapporo.jpg
+assets/travel/syracuse.jpg
+assets/travel/tokyo.jpg
+assets/travel/uluwatu.jpg
