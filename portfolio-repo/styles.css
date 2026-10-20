@@ -819,10 +819,10 @@ footer.site-footer .wrap{
   overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
   margin-inline:calc(50% - 50vw);
-  padding-inline:max(24px, calc(50vw - 610px));
+  padding-inline:max(24px, calc(50vw - 586px));
   /* Without this the snap pulls the first card past the gutter and it
      sits flush against the window edge. */
-  scroll-padding-inline:max(24px, calc(50vw - 610px));
+  scroll-padding-inline:max(24px, calc(50vw - 586px));
   padding-bottom:18px;
   cursor:grab;
   scrollbar-width:none;
