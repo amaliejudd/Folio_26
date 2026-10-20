@@ -18,7 +18,6 @@
    --------------------------------------------------------------- */
 :root{
   --t-bg:#efede7;        /* warm cream, slightly green-biased so it isn't beige */
-  --t-sheet:#ffffff;     /* the panel that scrolls up over the hero */
   --t-ink:#101010;
   --t-soft:rgba(16,16,16,0.56);
   --t-faint:rgba(16,16,16,0.34);
@@ -30,26 +29,22 @@
 
 /* The site hides the real cursor and draws its own dot in script.js.
    On this page the cursor is the interface, so give it back. */
-html, body, a, .t-hero, .t-strip-rail{cursor:auto;}
+html, body, a, .t-strip-rail{cursor:auto;}
 .t-strip-rail{cursor:grab;}
 
 body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 .status-chip{display:none;}
 
-/* The hero pins to the top and the white sheet below scrolls up over it,
-   so the collage is still there behind the page as you read it. */
+/* Flat page. The hero is just the first block, no pinning and nothing
+   sliding over it. Only the collage overflows, and only sideways. */
 .t-main{padding-top:0;}
 .t-hero{
-  position:sticky;
-  top:0;
-  z-index:0;
-  height:100svh;
-  min-height:520px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
+  padding-block:clamp(90px,14vh,170px) 0;
+  overflow-x:clip;
 }
 .t-hero-title{
   position:relative;
@@ -67,29 +62,16 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   user-select:none;
 }
 
-.t-sheet{
-  position:relative;
-  z-index:2;
-  background:var(--t-sheet);
-  border-radius:48px 48px 0 0;
-  padding-block:clamp(56px,7vw,96px) 0;
-  min-height:60vh;
-}
-@media(max-width:620px){
-  .t-sheet{border-radius:28px 28px 0 0;}
-}
+.t-sheet{padding-block:clamp(70px,9vw,120px) 0;}
 
 /* A scattered band of photos under the headline, wider than the window so
-   it runs off both edges, with the white sheet cutting the bottom off. */
+   it runs off both edges. */
 .t-collage{
   display:flex;
   align-items:flex-start;
   gap:clamp(14px,1.8vw,34px);
   width:max-content;
   margin-inline:auto;
-  /* Sits low enough that the sheet clips the bottom of the band instead of
-     leaving a strip of empty cream under it. */
-  margin-bottom:clamp(-180px,-14vh,-70px);
 }
 .t-cl{
   flex:0 0 auto;
@@ -243,9 +225,8 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 }
 
 @media(max-width:620px){
-  .t-hero{min-height:60vh;}
+  .t-hero{padding-block:clamp(70px,10vh,110px) 0;}
 }
-/* No cursor-following anything for people who'd rather not. */
 </style>
 </head>
 <body>
