@@ -114,20 +114,22 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 
 
 /* ---- Text block ---- */
-.t-about{margin:0 0 clamp(60px,8vw,110px);align-items:flex-start;}
-.t-intro{max-width:680px;margin:0;}
-@media(max-width:860px){
-  .t-about{flex-direction:column;gap:28px;}
+/* The column split, the head's placement and the stacking breakpoint all
+   come from .hero-row / .head-visual in styles.css, same as the About page.
+   Only the type is this page's. */
+.t-about{margin:0 0 clamp(60px,8vw,110px);}
+.t-intro{max-width:760px;margin:0;}
+@media(max-width:900px){
   .t-intro{max-width:none;}
 }
-.t-intro p{font-size:16px;line-height:1.65;color:var(--t-soft);margin:0 0 18px;}
+.t-intro p{font-size:16px;line-height:1.6;color:var(--t-soft);margin:0 0 18px;}
 .t-intro p:first-child{
   font-family:var(--t-display);
   font-size:clamp(24px,3.2vw,34px);
   line-height:1.2;
   letter-spacing:-0.025em;
   color:var(--t-ink);
-  margin-bottom:26px;
+  margin:0 0 26px;
 }
 .t-intro a{color:var(--t-ink);text-decoration:underline;text-underline-offset:3px;}
 
