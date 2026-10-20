@@ -800,13 +800,13 @@ footer.site-footer .wrap{
 }
 .t-strip-wrap{margin:clamp(60px,8vw,110px) auto 0;padding-bottom:clamp(20px,3vw,40px);}
 .t-strip-title{
-  text-align:center;
+  text-align:left;
   font-family:var(--serif);font-weight:400;
   font-size:clamp(26px,3.2vw,38px);
   line-height:1.2;
   color:var(--text);
-  margin:0 auto clamp(34px,4vw,52px);
-  max-width:22ch;
+  margin:0 0 clamp(34px,4vw,52px);
+  max-width:none;
   text-wrap:balance;
 }
 /* The rail breaks out of the page gutter so the row runs to both edges
