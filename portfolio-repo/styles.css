@@ -805,10 +805,11 @@ footer.site-footer .wrap{
   font-size:clamp(26px,3.2vw,38px);
   line-height:1.2;
   color:var(--text);
-  margin:0 0 clamp(34px,4vw,52px);
+  margin:0 0 14px;
   max-width:none;
   text-wrap:balance;
 }
+.t-strip-sub{margin:0 0 clamp(34px,4vw,52px);color:var(--text-soft);font-size:18px;line-height:1.4;}
 /* The rail breaks out of the page gutter so the row runs to both edges
    and the last card isn't boxed in. */
 .t-strip-rail{
