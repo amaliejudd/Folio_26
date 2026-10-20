@@ -788,3 +788,98 @@ footer.site-footer .wrap{
 
 /* Real photos in the About grid keep their own colour. */
 .photo-block.real-photo{filter:none !important;background-color:#fff;background-size:cover;}
+
+/* ---------------------------------------------------------------
+   Travel strip: a row of places you pan through sideways, used at
+   the bottom of the About page. Everything is namespaced .t-strip /
+   .t-stop so it can't reach anything else.
+   --------------------------------------------------------------- */
+:root{
+  --t-ground:#eef1f3;   /* behind a photo while it loads */
+  --t-ph:#e9ecee;       /* a stop with no photo yet */
+}
+.t-strip-wrap{margin:clamp(60px,8vw,110px) auto 0;padding-bottom:clamp(20px,3vw,40px);}
+.t-strip-title{
+  text-align:center;
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(26px,3.2vw,38px);
+  line-height:1.2;
+  color:var(--text);
+  margin:0 auto clamp(34px,4vw,52px);
+  max-width:22ch;
+  text-wrap:balance;
+}
+/* The rail breaks out of the page gutter so the row runs to both edges
+   and the last card isn't boxed in. */
+.t-strip-rail{
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
+  margin-inline:calc(50% - 50vw);
+  padding-inline:max(24px, calc(50vw - 610px));
+  /* Without this the snap pulls the first card past the gutter and it
+     sits flush against the window edge. */
+  scroll-padding-inline:max(24px, calc(50vw - 610px));
+  padding-bottom:18px;
+  cursor:grab;
+  scrollbar-width:thin;
+}
+.t-strip-rail.is-dragging{cursor:grabbing;user-select:none;}
+.t-strip{
+  display:flex;
+  gap:clamp(18px,2.4vw,34px);
+  margin:0;padding:0;
+  list-style:none;
+  width:max-content;
+}
+.t-stop{
+  flex:0 0 auto;
+  width:clamp(168px,21vw,248px);
+  scroll-snap-align:start;
+}
+.t-stop-shot{
+  position:relative;
+  aspect-ratio:3 / 4;
+  overflow:hidden;
+  background:var(--t-ground);
+}
+.t-stop-shot img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  /* Images are draggable by default, and that native drag swallows the
+     pointer events the rail needs to pan. */
+  -webkit-user-drag:none;
+  user-select:none;
+}
+/* A stop with no photo yet shows its name rather than a broken image. */
+.t-stop-fallback{
+  position:absolute;inset:0;
+  display:none;
+  align-items:center;justify-content:center;
+  padding:16px;
+  text-align:center;
+  background:var(--text);
+  color:var(--bg);
+  font-family:var(--serif);
+  font-size:15px;line-height:1.25;
+}
+.t-stop-shot.is-empty img{display:none;}
+.t-stop-shot.is-empty .t-stop-fallback{display:flex;}
+.t-stop-cap{margin:14px 0 0;}
+.t-stop-trip,
+.t-stop-place{display:block;}
+.t-stop-trip{
+  font-family:var(--mono);
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-faint);
+  margin-bottom:5px;
+}
+.t-stop-place{
+  font-family:var(--serif);
+  font-size:19px;font-weight:400;
+  color:var(--text);
+  line-height:1.25;
+}
+@media(prefers-reduced-motion:reduce){
+  .t-strip-rail{scroll-behavior:auto;}
+}
