@@ -17,12 +17,12 @@
    that tracks the cursor.
    --------------------------------------------------------------- */
 :root{
-  --t-bg:#efede7;        /* warm cream, slightly green-biased so it isn't beige */
+  --t-bg:#eef1f3;        /* the tone behind a photo while it loads */
   --t-ink:#101010;
   --t-soft:rgba(16,16,16,0.56);
   --t-faint:rgba(16,16,16,0.34);
   --t-line:rgba(16,16,16,0.13);
-  --t-ph:#dcdad3;        /* placeholder tile, a shade down from the ground */
+  --t-ph:#e9ecee;        /* placeholder tile, a shade down from the ground */
   --t-hl:#f0ef4e;        /* the highlight yellow */
   --t-display:'Outfit', 'Helvetica Neue', Arial, sans-serif;
   --t-body:'DM Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -30,10 +30,15 @@
 
 /* The site hides the real cursor and draws its own dot in script.js.
    On this page the cursor is the interface, so give it back. */
-html, body, a, .t-strip-rail{cursor:auto;}
+/* The site hides the system cursor and draws its own dot. On this page the
+   cursor is doing real work, so keep the real one and drop the dot. */
+html, body, a, .t-strip-rail{cursor:auto !important;}
+.cursor-dot{display:none !important;}
 .t-strip-rail{cursor:grab;}
 
-body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
+/* The page sits on the site's own background and type. Only the collage
+   and the travel strip carry this page's styling. */
+body{background:var(--bg);color:var(--text);}
 .status-chip{display:none;}
 
 /* Flat page. The hero is just the first block, no pinning and nothing
@@ -44,23 +49,8 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding-block:clamp(90px,14vh,170px) 0;
+  padding-block:clamp(40px,6vh,80px) 0;
   overflow-x:clip;
-}
-.t-hero-title{
-  position:relative;
-  z-index:1;
-  margin:0 0 clamp(30px,5vh,66px);
-  padding:0 24px;
-  text-align:center;
-  font-family:var(--t-display);
-  font-weight:500;
-  letter-spacing:-0.045em;
-  line-height:0.96;
-  font-size:clamp(40px,7vw,104px);
-  max-width:16ch;
-  text-wrap:balance;
-  user-select:none;
 }
 
 .t-sheet{padding-block:clamp(70px,9vw,120px) 0;}
@@ -117,21 +107,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 /* The column split, the head's placement and the stacking breakpoint all
    come from .hero-row / .head-visual in styles.css, same as the About page.
    Only the type is this page's. */
-.t-about{margin:0 0 clamp(60px,8vw,110px);}
-.t-intro{max-width:760px;margin:0;}
-@media(max-width:900px){
-  .t-intro{max-width:none;}
-}
-.t-intro p{font-size:16px;line-height:1.6;color:var(--t-soft);margin:0 0 18px;}
-.t-intro p:first-child{
-  font-family:var(--t-display);
-  font-size:clamp(24px,3.2vw,34px);
-  line-height:1.2;
-  letter-spacing:-0.025em;
-  color:var(--t-ink);
-  margin:0 0 26px;
-}
-.t-intro a{color:var(--t-ink);text-decoration:underline;text-underline-offset:3px;}
+.t-about{margin:clamp(50px,7vw,96px) 0 clamp(60px,8vw,110px);}
 
 /* ---- Table ---- */
 .t-strip-wrap{margin:clamp(60px,8vw,110px) auto 0;padding-bottom:clamp(90px,12vw,160px);}
@@ -231,7 +207,7 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 }
 
 @media(max-width:620px){
-  .t-hero{padding-block:clamp(70px,10vh,110px) 0;}
+  .t-hero{padding-block:clamp(26px,4vh,44px) 0;}
 }
 </style>
 </head>
@@ -248,7 +224,6 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 <main class="t-main">
 
   <section class="t-hero" id="hero">
-    <h1 class="t-hero-title">A designer, swimmer &amp; runner optimising for fun.</h1>
     <div class="t-collage" aria-hidden="true">
       <div class="t-cl-col cl-drop-2">
         <figure class="t-cl cl-s cl-soft is-placeholder"></figure>
@@ -290,12 +265,15 @@ body{background:var(--t-bg);color:var(--t-ink);font-family:var(--t-body);}
 
   <div class="t-about hero-row">
     <div class="hero-text-col">
-      <section class="t-intro">
-    <p>I&rsquo;m a Senior UX Designer based in Sydney with around eight years of experience turning gnarly problems into clear, considered products.</p>
-    <p>My work spans retail, energy, utilities and aviation, mostly large-scale internal tools and platforms, always with a focus on the people actually using the thing. I started out studying graphic design at the University of Wollongong before finishing a Bachelor of Design Computing at the University of Sydney.</p>
-    <p>I joined Designit in January 2022 and have since led end-to-end design for WooliesX, Air New Zealand, Origin Energy and Sydney Water. I work across research, interaction design, design systems and prototyping, and I&rsquo;m at my best embedded in a team who care about getting the details right.</p>
-    <p>To befriend me or hire me, reach out on <a href="https://www.linkedin.com/in/amalie-judd-a41129177/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, by <a href="mailto:amaliejudd@outlook.com">email</a>, or download my <a href="Amalie_Judd_Resume.pdf">CV</a>.</p>
-  </section>
+      <section class="hero" data-reveal>
+        <h1>I&rsquo;m a designer, swimmer &amp; runner optimising for fun.</h1>
+      </section>
+
+      <div class="intro-text" data-reveal>
+        <p>I&rsquo;m a Senior UX Designer based in Sydney with around eight years of experience turning gnarly problems into clear, considered products. My work spans retail, energy, utilities and aviation &mdash; mostly large-scale internal tools and platforms, always with a focus on the people actually using the thing.<br>I started out studying graphic design at the University of Wollongong before finishing a Bachelor of Design Computing at the University of Sydney.</p>
+        <p>I joined Designit in January 2022 and have since led end-to-end design for WooliesX, Air New Zealand, Origin Energy and Sydney Water. I work across research, interaction design, design systems and prototyping, and I&rsquo;m at my best embedded in a team who care about getting the details right.<br>Open to senior UX and product design roles in Sydney and beyond.</p>
+        <p>To befriend me or hire me, reach out on <a href="https://www.linkedin.com/in/amalie-judd-a41129177/" target="_blank" rel="noopener noreferrer">LinkedIn</a>, by <a href="mailto:amaliejudd@outlook.com">email</a>, or <a href="Amalie_Judd_Resume.pdf">download my CV</a>&mdash;can&rsquo;t wait to meet you!</p>
+      </div>
     </div>
 
     <div class="head-visual">
