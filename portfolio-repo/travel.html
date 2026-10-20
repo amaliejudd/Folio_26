@@ -117,18 +117,12 @@ body{background:var(--bg);color:var(--text);}
 .t-strip-title{
   text-align:center;
   font-family:var(--serif);font-weight:400;
-  font-size:clamp(28px,3.4vw,40px);
-  line-height:1.18;
-  letter-spacing:0;
+  font-size:clamp(26px,3.2vw,38px);
+  line-height:1.2;
   color:var(--text);
-  margin:0;
+  margin:0 auto clamp(34px,4vw,52px);
+  max-width:22ch;
   text-wrap:balance;
-}
-.t-strip-sub{
-  text-align:center;
-  margin:10px 0 clamp(34px,4vw,52px);
-  font-size:16px;
-  color:var(--text-soft);
 }
 
 /* A row of stops you pan through, after the souvenir shelf on the Domestic
@@ -291,8 +285,7 @@ body{background:var(--bg);color:var(--text);}
   
 
   <section class="t-strip-wrap">
-    <h2 class="t-strip-title">Sydney is home</h2>
-    <p class="t-strip-sub">But I keep leaving. 35 stops so far:</p>
+    <h2 class="t-strip-title">Based in Sydney, but I&rsquo;ve visited over 35 cities:</h2>
 
     <div class="t-strip-rail">
       <ul class="t-strip" id="strip">
